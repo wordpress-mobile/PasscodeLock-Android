@@ -1,0 +1,6 @@
+/bin
+/gen
+/library/bin
+/library/gen
+local.properties
+.DS_Store
