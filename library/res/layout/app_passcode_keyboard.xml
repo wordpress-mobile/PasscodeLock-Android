@@ -16,13 +16,13 @@
         android:paddingRight="16dp" >
 
         <ImageView
-            android:id="@+id/wordpress_logo"
+            android:id="@+id/passcode_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
             android:scaleType="centerInside"
-            android:src="@drawable/new_account_logo" >
+            android:src="@drawable/passcode_logo" >
         </ImageView>
 
         <TextView
