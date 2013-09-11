@@ -39,7 +39,10 @@ Once enabled a four-digit passcode needs to be entered any time your mobile app 
 
 - In your project you need to call `PasscodePreferencesActivity` to lauch the passcode configurazion screen.
 
-###License
-GPLv2
+###Apps that use this library
+- [WordPress for Android][1]
 
-*Free Software, Hell Yeah!*
+###License
+The MIT License (MIT)
+
+[1]: https://github.com/wordpress-mobile/WordPress-Android
