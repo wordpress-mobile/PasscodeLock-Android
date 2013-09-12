@@ -43,6 +43,6 @@ Once enabled a four-digit passcode needs to be entered any time your mobile app 
 - [WordPress for Android][1]
 
 ###License
-The MIT License (MIT)
+Dual licensed under MIT, and GPL.
 
 [1]: https://github.com/wordpress-mobile/WordPress-Android
