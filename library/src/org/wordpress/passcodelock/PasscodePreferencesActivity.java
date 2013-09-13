@@ -8,6 +8,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
+import android.view.MenuItem;
 
 import org.wordpress.passcodelock.R;
 
@@ -28,6 +29,10 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
         overridePendingTransition(R.anim.slide_up, R.anim.do_nothing);
 
         setTitle(getResources().getText(R.string.passcode_manage));
+
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
                 
         addPreferencesFromResource(R.xml.passlock_preferences);        
          
@@ -101,6 +106,17 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
             turnPasscodeOnOff.setTitle(R.string.passcode_turn_on);   
             changePasscode.setEnabled(false);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
