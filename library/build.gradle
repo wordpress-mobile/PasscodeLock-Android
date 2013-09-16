@@ -8,6 +8,7 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
@@ -15,6 +16,8 @@ repositories {
 
 dependencies {
 }
+
+version '0.0.2'
 
 android {
 
@@ -34,4 +37,14 @@ android {
 
     }
 
+}
+
+task writePom << {
+    pom {
+        project {
+            groupId "org.wordpress"
+            artifactId "android-passcodelock"
+            packaging "aar"
+        }
+    }.writeTo("$buildDir/pom.xml")
 }
