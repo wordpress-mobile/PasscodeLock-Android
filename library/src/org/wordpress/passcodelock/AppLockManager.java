@@ -20,24 +20,25 @@ public class AppLockManager {
             currentAppLocker.enable();
         }
     }
-
-    /*
-    public void stopAppLock() {
-        if ( currentAppLocker == null )
-            return;
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            currentAppLocker.disable();
-            currentAppLocker = null;
-        }
-    }
-  */  
     
     /**
-     * App lock is available on Android-v14 or higher.
+     * Default App lock is available on Android-v14 or higher.
      * @return True if the Passcode Lock feature is available on the device
      */
     public boolean isAppLockFeatureEnabled(){
-        return (android.os.Build.VERSION.SDK_INT >= 14) && ( currentAppLocker != null );
+    	if( currentAppLocker == null )
+    		return false;
+    	if( currentAppLocker instanceof DefaultAppLock)
+    		return (android.os.Build.VERSION.SDK_INT >= 14);
+    	else 
+    		return true;
+    }
+    
+    public void setCurrentAppLock(AbstractAppLock newAppLocker) {
+    	if( currentAppLocker != null ) {
+    		currentAppLocker.disable(); //disable the old applocker if available
+    	}
+        currentAppLocker = newAppLocker;
     }
     
     public AbstractAppLock getCurrentAppLock() {

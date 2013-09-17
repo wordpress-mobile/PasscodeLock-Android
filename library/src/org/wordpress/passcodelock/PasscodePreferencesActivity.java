@@ -1,16 +1,13 @@
 package org.wordpress.passcodelock;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.widget.Toast;
 import android.view.MenuItem;
-
-import org.wordpress.passcodelock.R;
+import android.widget.Toast;
 
 public class PasscodePreferencesActivity extends PreferenceActivity {
     
