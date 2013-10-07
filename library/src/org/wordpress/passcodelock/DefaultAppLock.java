@@ -1,5 +1,6 @@
 package org.wordpress.passcodelock;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import android.app.Activity;
@@ -108,6 +109,9 @@ public class DefaultAppLock extends AbstractAppLock {
         
         if( arg0.getClass() == PasscodeUnlockActivity.class )
             return;
+
+        if( ( this.appLockDisabledActivities != null ) && Arrays.asList(this.appLockDisabledActivities).contains( arg0.getClass().getName() ) )
+     	   return;
         
         lostFocusDate = new Date();
         
@@ -116,9 +120,12 @@ public class DefaultAppLock extends AbstractAppLock {
     @Override
     public void onActivityResumed(Activity arg0) {
         
-        if( arg0.getClass() == PasscodeUnlockActivity.class )
+        if( arg0.getClass() == PasscodeUnlockActivity.class ) 
             return;
-
+        
+       if(  ( this.appLockDisabledActivities != null ) && Arrays.asList(this.appLockDisabledActivities).contains( arg0.getClass().getName() ) )
+    	   return;
+       
         if(mustShowUnlockSceen()) {
             //uhhh ohhh!
             Intent i = new Intent(arg0.getApplicationContext(), PasscodeUnlockActivity.class);

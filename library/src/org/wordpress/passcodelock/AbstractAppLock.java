@@ -9,6 +9,7 @@ public abstract class AbstractAppLock implements Application.ActivityLifecycleCa
     protected static final String APP_LOCK_PASSWORD_PREF_KEY = "wp_app_lock_password_key";
     
     protected int lockTimeOut = DEFAULT_TIMEOUT;
+    protected String[] appLockDisabledActivities = new String[0];
     
     /*
      * There are situations where an activity will start a different application with an intent.  
@@ -16,6 +17,13 @@ public abstract class AbstractAppLock implements Application.ActivityLifecycleCa
      */
     public void setOneTimeTimeout(int timeout) {
         this.lockTimeOut = timeout;
+    }
+
+    /*
+     * There are situations where we don't want call the AppLock on activities (sharing items to out app for example).  
+     */
+    public void setDisabledActivities( String[] disabledActs ) {
+    	this.appLockDisabledActivities = disabledActs;
     }
     
     public abstract void enable();
