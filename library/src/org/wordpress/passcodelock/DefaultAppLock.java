@@ -96,6 +96,7 @@ public class DefaultAppLock extends AbstractAppLock {
         long now_ms = now.getTime();
         long lost_focus_ms = lostFocusDate.getTime();
         int secondsPassed = (int) (now_ms - lost_focus_ms)/(1000);
+        secondsPassed = Math.abs(secondsPassed); //Make sure changing the clock on the device to a time in the past doesn't by-pass PIN Lock
         if (secondsPassed >= currentTimeOut) {         
             lostFocusDate = null;
             return true;
