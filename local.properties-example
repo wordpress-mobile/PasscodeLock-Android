@@ -1,0 +1,4 @@
+passcodelock.password_preferecence_key=passcode_lock_prefs_password_key
+passcodelock.password_salt=Ik#ra.;AQ1H3~3CWUfsm8DmAdt-^DRG+jbI#c->sKP<0yZ[h~1(-SC3l(GX
+passcodelock.password_enc_secret=do-not-write-on-the-wall
+sdk.dir=/opt/adt-bundle-mac-x86_64-20130729/sdk

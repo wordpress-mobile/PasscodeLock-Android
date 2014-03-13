@@ -8,9 +8,10 @@ Once enabled a four-digit passcode needs to be entered any time your mobile app 
 
 
 #### Version
-0.0.1
+0.0.5
 
 ## Installation
+- Create the file `local.properties` in the root of the prj, and change the secrets. See `local.properties-example`
 - Add a reference to the library in your project preferences file.
 - Open the file `android.manifest` and declare the following activities:
 

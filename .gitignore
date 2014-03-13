@@ -18,3 +18,5 @@ build/
 *.iws
 .idea/
 .gradle/
+
+library/src/org/wordpress/passcodelock/Config.java

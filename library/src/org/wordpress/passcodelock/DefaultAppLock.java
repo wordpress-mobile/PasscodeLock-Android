@@ -3,20 +3,29 @@ package org.wordpress.passcodelock;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 
 public class DefaultAppLock extends AbstractAppLock {
 
     private Application currentApp; //Keep a reference to the app that invoked the locker
     private SharedPreferences settings;
     private Date lostFocusDate;
-    private static final String PASSWORD_SALT = "sadasauidhsuyeuihdahdiauhs";
-
+    
+    //Add back-compatibility 
+    private static final String OLD_PASSWORD_SALT = "sadasauidhsuyeuihdahdiauhs";
+    private static final String OLD_APP_LOCK_PASSWORD_PREF_KEY = "wp_app_lock_password_key";
+    
     public DefaultAppLock(Application currentApp) {
         super();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(currentApp); 
@@ -46,9 +55,20 @@ public class DefaultAppLock extends AbstractAppLock {
     }
     
     public boolean verifyPassword( String password ){
-        String storedPassword = settings.getString(APP_LOCK_PASSWORD_PREF_KEY, "");
-        password = PASSWORD_SALT + password + PASSWORD_SALT;
-        password = StringUtils.getMd5Hash(password);
+    	String storedPassword = "";
+    	 
+    	if (settings.contains(OLD_APP_LOCK_PASSWORD_PREF_KEY)) { //add back-compatibility 
+    		//Check if the old value is available
+    		storedPassword = settings.getString(OLD_APP_LOCK_PASSWORD_PREF_KEY, "");
+    		password = OLD_PASSWORD_SALT + password + OLD_PASSWORD_SALT;
+            password = StringUtils.getMd5Hash(password);
+    	} else if (settings.contains(Config.PASSWORD_PREFERECENCE_KEY)) {
+    		//read the password from the new key 
+    		storedPassword = settings.getString(Config.PASSWORD_PREFERECENCE_KEY, "");
+    		storedPassword = decryptPassword(storedPassword);
+    		password = Config.PASSWORD_SALT + password +  Config.PASSWORD_SALT;
+    	}
+        
         if( password.equalsIgnoreCase(storedPassword) ) {
             lostFocusDate = new Date();
             return true;
@@ -61,12 +81,15 @@ public class DefaultAppLock extends AbstractAppLock {
         SharedPreferences.Editor editor = settings.edit();
 
         if(password == null) {
-            editor.remove(APP_LOCK_PASSWORD_PREF_KEY);
+            editor.remove(OLD_APP_LOCK_PASSWORD_PREF_KEY);
+            editor.remove(Config.PASSWORD_PREFERECENCE_KEY);
             editor.commit();
             this.disable();
         } else {
-            password = PASSWORD_SALT + password + PASSWORD_SALT;
-            editor.putString(APP_LOCK_PASSWORD_PREF_KEY, StringUtils.getMd5Hash(password));
+            password = Config.PASSWORD_SALT + password +  Config.PASSWORD_SALT;
+            password = encryptPassword(password);
+            editor.putString(Config.PASSWORD_PREFERECENCE_KEY, password);
+            editor.remove(OLD_APP_LOCK_PASSWORD_PREF_KEY);
             editor.commit();
             this.enable();
         }
@@ -74,12 +97,49 @@ public class DefaultAppLock extends AbstractAppLock {
         return true;
     }
         
+    //Check if we need to show the lock screen at startup
     public boolean isPasswordLocked(){
-        //Check if we need to show the lock screen at startup
-       if( settings.getString(APP_LOCK_PASSWORD_PREF_KEY, "").equals("") ) 
-           return false;
-          
-        return true;
+
+    	if (settings.contains(OLD_APP_LOCK_PASSWORD_PREF_KEY)) //Check if the old value is available 
+    		return true;
+
+    	if (settings.contains(Config.PASSWORD_PREFERECENCE_KEY)) 
+    		return true;
+
+    	return false;
+    }
+    
+    private String encryptPassword(String clearText) {
+        try {
+            DESKeySpec keySpec = new DESKeySpec(
+                    Config.PASSWORD_ENC_SECRET.getBytes("UTF-8"));
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey key = keyFactory.generateSecret(keySpec);
+
+            Cipher cipher = Cipher.getInstance("DES");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            String encrypedPwd = Base64.encodeToString(cipher.doFinal(clearText
+                    .getBytes("UTF-8")), Base64.DEFAULT);
+            return encrypedPwd;
+        } catch (Exception e) {
+        }
+        return clearText;
+    }
+
+    private String decryptPassword(String encryptedPwd) {
+        try {
+            DESKeySpec keySpec = new DESKeySpec(Config.PASSWORD_ENC_SECRET.getBytes("UTF-8"));
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey key = keyFactory.generateSecret(keySpec);
+
+            byte[] encryptedWithoutB64 = Base64.decode(encryptedPwd, Base64.DEFAULT);
+            Cipher cipher = Cipher.getInstance("DES");
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] plainTextPwdBytes = cipher.doFinal(encryptedWithoutB64);
+            return new String(plainTextPwdBytes);
+        } catch (Exception e) {
+        }
+        return encryptedPwd;
     }
     
     private boolean mustShowUnlockSceen() {
