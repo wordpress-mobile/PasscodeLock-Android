@@ -3,11 +3,12 @@
   <groupId>org.wordpress</groupId>
   <artifactId>android-passcodelock</artifactId>
   <versioning>
-    <release>0.0.3</release>
+    <release>0.0.5</release>
     <versions>
       <version>0.0.1</version>
       <version>0.0.3</version>
+      <version>0.0.5</version>
     </versions>
-    <lastUpdated>20130917155130</lastUpdated>
+    <lastUpdated>20140318164705</lastUpdated>
   </versioning>
 </metadata>
