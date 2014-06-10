@@ -19,4 +19,4 @@ build/
 .idea/
 .gradle/
 
-library/src/org/wordpress/passcodelock/Config.java
+library/gradle.properties
