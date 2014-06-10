@@ -1,17 +1,17 @@
 #App passcode library for Android
 
-An app passcode protection implementation, which allows user to protect the app with a four digit code. 
+An app passcode protection implementation, which allows user to protect the app with a four digit code.
 
 Once enabled a four-digit passcode needs to be entered any time your mobile app is launched. This way your app is safe even if your smartphone or tablet falls into the wrong hands.
 
-*Note: This library doesn't add any extra protection to your data. App data will not be encrypted, the library just adds a pin lock screen that makes the app safe even if your kids put their hands on the device :) * 
+*Note: This library doesn't add any extra protection to your data. App data will not be encrypted, the library just adds a pin lock screen that makes the app safe even if your kids put their hands on the device :) *
 
 
 #### Version
 0.0.5
 
 ## Installation
-- Create the file `local.properties` in the root of the prj, and change the secrets. See `local.properties-example`
+- Copy file `gradle.properties-example` to `gradle.properties` in the `library/` directory of the project.
 - Add a reference to the library in your project preferences file.
 - Open the file `android.manifest` and declare the following activities:
 
@@ -32,7 +32,7 @@ Once enabled a four-digit passcode needs to be entered any time your mobile app 
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
-- Add the following line in `onCreate` of your App file 
+- Add the following line in `onCreate` of your App file
         AppLockManager.getInstance().enableDefaultAppLockIfAvailable(this);
 
 - In your project you need to call `PasscodePreferencesActivity` to lauch the passcode configuration screen.
