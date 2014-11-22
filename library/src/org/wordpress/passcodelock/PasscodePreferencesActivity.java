@@ -27,7 +27,7 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
 
         setTitle(getResources().getText(R.string.passcode_manage));
 
-        if (android.os.Build.VERSION.SDK_INT >= 11) {
+        if (android.os.Build.VERSION.SDK_INT >= 11 && getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
                 
