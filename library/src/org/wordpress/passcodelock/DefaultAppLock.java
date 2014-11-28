@@ -23,6 +23,8 @@ public class DefaultAppLock extends AbstractAppLock {
     private Application currentApp; //Keep a reference to the app that invoked the locker
     private SharedPreferences settings;
     private Date lostFocusDate;
+	private String lastPausedActivityName;
+    private String currentResumeActivityName;
 
     //Add back-compatibility
     private static final String OLD_PASSWORD_SALT = "sadasauidhsuyeuihdahdiauhs";
@@ -146,6 +148,10 @@ public class DefaultAppLock extends AbstractAppLock {
 
     private boolean mustShowUnlockSceen() {
 
+		if (currentResumeActivityName != null && !currentResumeActivityName.equals(lastPausedActivityName)) {
+    		return false;
+    	}
+		
         if( isPasswordLocked() == false)
             return false;
 
@@ -169,6 +175,7 @@ public class DefaultAppLock extends AbstractAppLock {
 
     @Override
     public void onActivityPaused(Activity arg0) {
+		lastPausedActivityName = arg0.getClass().getName();
 
         if( arg0.getClass() == PasscodeUnlockActivity.class )
             return;
@@ -189,6 +196,7 @@ public class DefaultAppLock extends AbstractAppLock {
        if(  ( this.appLockDisabledActivities != null ) && Arrays.asList(this.appLockDisabledActivities).contains( arg0.getClass().getName() ) )
     	   return;
 
+	   currentResumeActivityName = arg0.getClass().getName();
         if(mustShowUnlockSceen()) {
             //uhhh ohhh!
             Intent i = new Intent(arg0.getApplicationContext(), PasscodeUnlockActivity.class);
