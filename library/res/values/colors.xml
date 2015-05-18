@@ -2,6 +2,8 @@
 <resources>
     <color name="light_gray">#E5E5E5</color>
     <color name="gray">#CCC</color>
+    <color name="passcodelock_background">@color/light_gray</color>
+    <color name="passcodelock_prompt_text_color">@color/black</color>
     <color name="list_row_selected">#78c8e6</color>
 </resources>
 

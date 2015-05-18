@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
   <string name="passcode_manage">Manage passcode</string>
@@ -12,4 +13,19 @@
   <string name="passcode_turn_off">Turn passcode off</string>
   <string name="passcode_turn_on">Turn passcode on</string>
     
+    <string name="passcodelock_numpad_0">0</string>
+    <string name="passcodelock_numpad_1">1</string>
+    <string name="passcodelock_numpad_2">2</string>
+    <string name="passcodelock_numpad_3">3</string>
+    <string name="passcodelock_numpad_4">4</string>
+    <string name="passcodelock_numpad_5">5</string>
+    <string name="passcodelock_numpad_6">6</string>
+    <string name="passcodelock_numpad_7">7</string>
+    <string name="passcodelock_numpad_8">8</string>
+    <string name="passcodelock_numpad_9">9</string>
+    <string name="passcodelock_numpad_del">Del</string>
+
+    <!-- Content description -->
+    <string name="cd_passcodelock_logo">PasscodeLock logo image</string>
+
 </resources>

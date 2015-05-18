@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center"
-    android:background="#FFFFFF" >
+    android:background="@color/passcodelock_background">
 
     <LinearLayout
         android:id="@+id/AppUnlockLinearLayout1"
@@ -13,10 +15,11 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp" >
+        android:paddingRight="16dp">
 
         <ImageView
             android:id="@+id/passcode_logo"
+            android:contentDescription="@string/cd_passcodelock_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:paddingBottom="16dp"
@@ -34,7 +37,7 @@
             android:paddingTop="16dp"
             android:text="@string/passcode_enter_passcode"
             android:textAlignment="center"
-            android:textColor="#FF464646"
+            android:textColor="@color/passcodelock_prompt_text_color"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -78,47 +81,51 @@
                 <Button
                     android:id="@+id/button1"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="1" />
+                    android:text="@string/passcodelock_numpad_1" />
+
                 <Button
                     android:id="@+id/button2"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="2" />
+                    android:text="@string/passcodelock_numpad_2" />
+
                 <Button
                     android:id="@+id/button3"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="3" />
+                    android:text="@string/passcodelock_numpad_3" />
             </TableRow>
 
             <TableRow>
                 <Button
                     android:id="@+id/button4"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="4" />
+                    android:text="@string/passcodelock_numpad_4" />
 
                 <Button
                     android:id="@+id/button5"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="5" />
+                    android:text="@string/passcodelock_numpad_5" />
 
                 <Button
                     android:id="@+id/button6"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="6" />
+                    android:text="@string/passcodelock_numpad_6" />
             </TableRow>
 
             <TableRow>
                 <Button
                     android:id="@+id/button7"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="7" />
+                    android:text="@string/passcodelock_numpad_7" />
+
                 <Button
                     android:id="@+id/button8"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="8" />
+                    android:text="@string/passcodelock_numpad_8" />
+
                 <Button
                     android:id="@+id/button9"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="9" />
+                    android:text="@string/passcodelock_numpad_9" />
             </TableRow>
 
             <TableRow>
@@ -129,14 +136,16 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:text="" />
+
                 <Button
                     android:id="@+id/button0"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="0" />
+                    android:text="@string/passcodelock_numpad_0" />
+
                 <Button
                     android:id="@+id/button_erase"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="Del" />
+                    android:text="@string/passcodelock_numpad_del" />
             </TableRow>
             
         </TableLayout>
