@@ -3,8 +3,6 @@ package org.wordpress.passcodelock;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.wordpress.passcodelock.R;
-
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
     private int type = -1;
     private String unverifiedPasscode = null;
@@ -17,22 +15,15 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         if (extras != null) {
             type = extras.getInt("type", -1);
         }
-        
     }
-    
+
     @Override
     protected void onPinLockInserted() {
-        String passLock = pinCodeField1.getText().toString() + pinCodeField2.getText().toString() +
-                pinCodeField3.getText().toString() + pinCodeField4.getText();
-        
-        pinCodeField1.setText("");
-        pinCodeField2.setText("");
-        pinCodeField3.setText("");
-        pinCodeField4.setText("");
-        pinCodeField1.requestFocus();
-        
+        mPinCodeField.setText("");
+
+        String passLock = mPinCodeField.getText().toString();
+
         switch (type) {
-            
             case PasscodePreferencesActivity.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
                     setResult(RESULT_OK);
@@ -42,7 +33,6 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     showPasswordError();
                 }
                 break;
-                
             case PasscodePreferencesActivity.ENABLE_PASSLOCK:
                 if( unverifiedPasscode == null ) {
                     ((TextView) findViewById(R.id.top_message)).setText(R.string.passcode_re_enter_passcode);
@@ -59,7 +49,6 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     }
                 }
                 break;
-                
             case PasscodePreferencesActivity.CHANGE_PASSWORD:
                 //verify old password
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
@@ -69,7 +58,6 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     showPasswordError();
                 } 
                 break;
-                
             default:
                 break;
         }

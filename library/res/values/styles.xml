@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="PasscodeInputItemStyle">
         <item name="android:gravity">center</item>
         <item name="android:maxLength">1</item>
@@ -9,7 +12,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:singleLine">true</item>
     </style>
-    
+
     <style name="PasscodeKeyboardButtonStyle" parent="@android:style/Widget.Button">
        <item name="android:textSize">16sp</item>
   	   <item name="android:textColor">#FF464646</item>

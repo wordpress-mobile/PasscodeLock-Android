@@ -40,34 +40,15 @@
             android:textColor="@color/passcodelock_prompt_text_color"
             android:textSize="18sp" />
 
-        <LinearLayout
-            android:id="@+id/pin_code_row"
+        <EditText
+            android:id="@+id/pin_field"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <EditText
-                android:id="@+id/pincode_1"
-                style="@style/PasscodeInputItemStyle" >
-
-                <requestFocus />
-            </EditText>
-
-            <EditText
-                android:id="@+id/pincode_2"
-                style="@style/PasscodeInputItemStyle" >
-            </EditText>
-
-            <EditText
-                android:id="@+id/pincode_3"
-                style="@style/PasscodeInputItemStyle" >
-            </EditText>
-
-            <EditText
-                android:id="@+id/pincode_4"
-                style="@style/PasscodeInputItemStyle" >
-            </EditText>
-        </LinearLayout>
+            android:layout_marginRight="38dp"
+            android:maxLength="4"
+            android:inputType="numberPassword"
+            android:background="@color/white" />
 
         <TableLayout
             android:id="@+id/tableLayout1"
