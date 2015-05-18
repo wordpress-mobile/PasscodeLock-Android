@@ -30,6 +30,11 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!getResources().getBoolean(R.bool.allow_rotation)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
         setContentView(R.layout.app_passcode_keyboard);
         
         topMessage = (TextView) findViewById(R.id.top_message);
