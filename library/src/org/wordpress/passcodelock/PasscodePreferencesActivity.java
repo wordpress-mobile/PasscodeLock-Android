@@ -10,19 +10,18 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class PasscodePreferencesActivity extends PreferenceActivity {
-    
     static final int ENABLE_PASSLOCK = 0;
     static final int DISABLE_PASSLOCK = 1;
     static final int CHANGE_PASSWORD = 2;
-    
+
     private Preference turnPasscodeOnOff = null;
     private Preference changePasscode = null;
-    
+
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     
+
         overridePendingTransition(R.anim.slide_up, R.anim.do_nothing);
 
         setTitle(getResources().getText(R.string.passcode_manage));
@@ -30,19 +29,19 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
         if (android.os.Build.VERSION.SDK_INT >= 11 && getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-                
+
         addPreferencesFromResource(R.xml.passlock_preferences);        
-         
-        turnPasscodeOnOff = (Preference) findPreference("turn_passcode_on_off");
-        changePasscode = (Preference) findPreference("change_passcode");
-        
-        if ( AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked() ) { 
+
+        turnPasscodeOnOff = findPreference("turn_passcode_on_off");
+        changePasscode = findPreference("change_passcode");
+
+        if (AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked()) {
             turnPasscodeOnOff.setTitle(R.string.passcode_turn_off);
         } else {           
             turnPasscodeOnOff.setTitle(R.string.passcode_turn_on);   
             changePasscode.setEnabled(false);
         }
-        
+
         turnPasscodeOnOff.setOnPreferenceClickListener(passcodeOnOffTouchListener);
         changePasscode.setOnPreferenceClickListener(changePasscodeTouchListener);
     }
@@ -52,9 +51,8 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
         // ignore orientation change
         super.onConfigurationChanged(newConfig);
     }
-    
+
     OnPreferenceClickListener passcodeOnOffTouchListener = new OnPreferenceClickListener() {
-        
         @Override
         public boolean onPreferenceClick(Preference preference) {
             int type = AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked() ? DISABLE_PASSLOCK : ENABLE_PASSLOCK;
@@ -64,7 +62,7 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
             return false;
         }
     };
-    
+
     private OnPreferenceClickListener changePasscodeTouchListener = new OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick (Preference preference) {
@@ -87,16 +85,16 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
             case CHANGE_PASSWORD:
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(PasscodePreferencesActivity.this, getString(R.string.passcode_set), Toast.LENGTH_SHORT).show();
-                } 
+                }
                 break;
             default:
                 break;
         }
         updateUI();
     }
-    
+
     private void updateUI() {
-        if ( AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked() ) { 
+        if (AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked()) {
             turnPasscodeOnOff.setTitle(R.string.passcode_turn_off);
             changePasscode.setEnabled(true);
         } else {           
@@ -107,7 +105,6 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -115,5 +112,4 @@ public class PasscodePreferencesActivity extends PreferenceActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

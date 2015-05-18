@@ -29,23 +29,25 @@
         </ImageView>
 
         <TextView
-            android:id="@+id/top_message"
+            android:id="@+id/passcodelock_prompt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
-            android:text="@string/passcode_enter_passcode"
+            android:text="@string/passcodelock_prompt_message"
             android:textAlignment="center"
             android:textColor="@color/passcodelock_prompt_text_color"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/pin_field"
+            style="@style/PasscodeEditTextStyle"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="38dp"
+            android:hint="@string/passcodelock_hint"
             android:maxLength="4"
             android:inputType="numberPassword"
             android:background="@color/white" />

@@ -27,7 +27,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
 
         setContentView(R.layout.app_passcode_keyboard);
         
-        topMessage = (TextView) findViewById(R.id.top_message);
+        topMessage = (TextView) findViewById(R.id.passcodelock_prompt);
         
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -94,7 +94,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
 			} else if (id == R.id.button9) {
 				currentValue = 9;
 			}
-            
+
             //set the value and move the focus
             String currentValueString = String.valueOf(currentValue);
             mPinCodeField.setText(mPinCodeField.getText().toString() + currentValueString);
