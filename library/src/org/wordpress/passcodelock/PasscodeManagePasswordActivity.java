@@ -19,9 +19,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
 
     @Override
     protected void onPinLockInserted() {
-        mPinCodeField.setText("");
-
         String passLock = mPinCodeField.getText().toString();
+        mPinCodeField.setText("");
 
         switch (type) {
             case PasscodePreferencesActivity.DISABLE_PASSLOCK:
