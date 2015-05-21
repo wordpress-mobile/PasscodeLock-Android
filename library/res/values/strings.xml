@@ -25,7 +25,6 @@
     <string name="passcodelock_numpad_7">7</string>
     <string name="passcodelock_numpad_8">8</string>
     <string name="passcodelock_numpad_9">9</string>
-    <string name="passcodelock_numpad_del">Del</string>
 
     <!-- Content description -->
     <string name="cd_passcodelock_logo">PasscodeLock logo image</string>

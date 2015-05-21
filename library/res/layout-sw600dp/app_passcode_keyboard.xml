@@ -125,10 +125,15 @@
                     style="@style/PasscodeKeyboardButtonStyle"
                     android:text="@string/passcodelock_numpad_0" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/button_erase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_del" />
+                    android:scaleType="centerInside"
+                    android:tint="@color/passcodelock_button_text_color"
+                    android:src="@drawable/ic_backspace_white_36dp"
+                    android:layout_gravity="center" />
             </TableRow>
 
         </TableLayout>

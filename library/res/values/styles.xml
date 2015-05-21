@@ -3,19 +3,9 @@
 <resources
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="PasscodeInputItemStyle">
-        <item name="android:gravity">center</item>
-        <item name="android:maxLength">1</item>
-        <item name="android:inputType">textPassword</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
     <style name="PasscodeKeyboardButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/passcodelock_button_text_color</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">@dimen/passcodelock_button_text_size</item>
         <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
    </style>
