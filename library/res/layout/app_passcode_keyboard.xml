@@ -127,13 +127,12 @@
 
                 <ImageButton
                     android:id="@+id/button_erase"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     style="@style/PasscodeKeyboardButtonStyle"
                     android:scaleType="centerInside"
                     android:tint="@color/passcodelock_button_text_color"
-                    android:src="@drawable/ic_backspace_white_36dp"
-                    android:layout_gravity="center" />
+                    android:src="@drawable/ic_backspace_white_36dp" />
             </TableRow>
             
         </TableLayout>
