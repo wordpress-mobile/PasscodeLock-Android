@@ -38,7 +38,7 @@ Once enabled a four-digit passcode needs to be entered any time your mobile app 
 - In your project you need to call `PasscodePreferencesActivity` to lauch the passcode configuration screen.
 
 ###Customization
-If you want to customize the pinlock icon, the one available in the unlock screen, add a file named `passcode_logo.png` in `res/drawable`.
+If you want to customize the pinlock icon, the one available in the unlock screen, override the 'passcode_logo.xml' drawable resource.
 
 ###Apps that use this library
 - [WordPress for Android][1]
