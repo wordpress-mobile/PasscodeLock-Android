@@ -4,6 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="PasscodeKeyboardButtonStyle" parent="@android:style/Widget.Button">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/light_gray</item>
+        <item name="colorControlActivated">@color/list_row_selected</item>
+        <item name="colorControlHighlight">@color/list_row_selected</item>
+
         <item name="android:textColor">@color/passcodelock_button_text_color</item>
         <item name="android:textSize">@dimen/passcodelock_button_text_size</item>
         <item name="android:clickable">true</item>
