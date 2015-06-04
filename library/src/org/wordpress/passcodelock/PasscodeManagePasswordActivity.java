@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
+    public static final String  KEY_TYPE = "type";
+
     private int type = -1;
     private String unverifiedPasscode = null;
 
@@ -13,7 +15,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            type = extras.getInt("type", -1);
+            type = extras.getInt(KEY_TYPE, -1);
         }
     }
 
@@ -23,7 +25,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         mPinCodeField.setText("");
 
         switch (type) {
-            case PasscodePreferencesActivity.DISABLE_PASSLOCK:
+            case PasscodePreferenceFragment.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
                     setResult(RESULT_OK);
                     AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
@@ -32,7 +34,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     showPasswordError();
                 }
                 break;
-            case PasscodePreferencesActivity.ENABLE_PASSLOCK:
+            case PasscodePreferenceFragment.ENABLE_PASSLOCK:
                 if( unverifiedPasscode == null ) {
                     ((TextView) findViewById(R.id.passcodelock_prompt)).setText(R.string.passcode_re_enter_passcode);
                     unverifiedPasscode = passLock;
@@ -48,11 +50,11 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     }
                 }
                 break;
-            case PasscodePreferencesActivity.CHANGE_PASSWORD:
+            case PasscodePreferenceFragment.CHANGE_PASSWORD:
                 //verify old password
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
                     topMessage.setText(R.string.passcodelock_prompt_message);
-                    type = PasscodePreferencesActivity.ENABLE_PASSLOCK;
+                    type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
                 } else {
                     showPasswordError();
                 } 

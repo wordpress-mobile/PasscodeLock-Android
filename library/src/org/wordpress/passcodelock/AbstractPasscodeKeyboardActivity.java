@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public abstract class AbstractPasscodeKeyboardActivity extends Activity {
+    public static final String KEY_MESSAGE = "message";
+
     protected EditText mPinCodeField;
     protected InputFilter[] filters = null;
     protected TextView topMessage = null;
@@ -31,7 +33,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
         
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String message = extras.getString("message");
+            String message = extras.getString(KEY_MESSAGE);
             if (message != null) {
                 topMessage.setText(message);
             }

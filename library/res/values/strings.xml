@@ -26,6 +26,10 @@
     <string name="passcodelock_numpad_8">8</string>
     <string name="passcodelock_numpad_9">9</string>
 
+    <!-- Preference keys -->
+    <string name="pref_key_passcode_toggle">turn_passcode_on_off</string>
+    <string name="pref_key_change_passcode">change_passcode</string>
+
     <!-- Content description -->
     <string name="cd_passcodelock_logo">PasscodeLock logo image</string>
 
