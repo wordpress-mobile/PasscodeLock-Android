@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import org.wordpress.passcodelock.R;
-
 public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     
     @Override
@@ -21,8 +19,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
 
     @Override
     protected void onPinLockInserted() {
-        String passLock = pinCodeField1.getText().toString() + pinCodeField2.getText().toString() +
-                pinCodeField3.getText().toString() + pinCodeField4.getText();
+        String passLock = mPinCodeField.getText().toString();
         if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
             setResult(RESULT_OK);
             finish();
@@ -32,11 +29,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
                     Animation shake = AnimationUtils.loadAnimation(PasscodeUnlockActivity.this, R.anim.shake);
                     findViewById(R.id.AppUnlockLinearLayout1).startAnimation(shake);
                     showPasswordError();
-                    pinCodeField1.setText("");
-                    pinCodeField2.setText("");
-                    pinCodeField3.setText("");
-                    pinCodeField4.setText("");
-                    pinCodeField1.requestFocus();
+                    mPinCodeField.setText("");
                 }
             };
             runOnUiThread(shake);

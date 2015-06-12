@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#0f0f0f</color>
     <color name="light_gray">#E5E5E5</color>
     <color name="gray">#CCC</color>
     <color name="list_row_selected">#78c8e6</color>
-</resources>
 
+    <color name="passcodelock_background">@color/light_gray</color>
+    <color name="passcodelock_prompt_text_color">@color/black</color>
+    <color name="passcodelock_field_background_color">@color/white</color>
+    <color name="passcodelock_field_text_color">#444444</color>
+    <color name="passcodelock_field_hint_text_color">#5f5f5f</color>
+    <color name="passcodelock_button_background_color">@android:color/transparent</color>
+    <color name="passcodelock_button_text_color">@color/black</color>
+
+</resources>

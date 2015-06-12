@@ -3,9 +3,9 @@ package org.wordpress.passcodelock;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.wordpress.passcodelock.R;
-
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
+    public static final String  KEY_TYPE = "type";
+
     private int type = -1;
     private String unverifiedPasscode = null;
 
@@ -15,25 +15,17 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            type = extras.getInt("type", -1);
+            type = extras.getInt(KEY_TYPE, -1);
         }
-        
     }
-    
+
     @Override
     protected void onPinLockInserted() {
-        String passLock = pinCodeField1.getText().toString() + pinCodeField2.getText().toString() +
-                pinCodeField3.getText().toString() + pinCodeField4.getText();
-        
-        pinCodeField1.setText("");
-        pinCodeField2.setText("");
-        pinCodeField3.setText("");
-        pinCodeField4.setText("");
-        pinCodeField1.requestFocus();
-        
+        String passLock = mPinCodeField.getText().toString();
+        mPinCodeField.setText("");
+
         switch (type) {
-            
-            case PasscodePreferencesActivity.DISABLE_PASSLOCK:
+            case PasscodePreferenceFragment.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
                     setResult(RESULT_OK);
                     AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
@@ -42,10 +34,9 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     showPasswordError();
                 }
                 break;
-                
-            case PasscodePreferencesActivity.ENABLE_PASSLOCK:
+            case PasscodePreferenceFragment.ENABLE_PASSLOCK:
                 if( unverifiedPasscode == null ) {
-                    ((TextView) findViewById(R.id.top_message)).setText(R.string.passcode_re_enter_passcode);
+                    ((TextView) findViewById(R.id.passcodelock_prompt)).setText(R.string.passcode_re_enter_passcode);
                     unverifiedPasscode = passLock;
                 } else {
                     if( passLock.equals(unverifiedPasscode)) {
@@ -54,22 +45,20 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                         finish();
                     } else {
                         unverifiedPasscode = null;
-                        topMessage.setText(R.string.passcode_enter_passcode);
+                        topMessage.setText(R.string.passcodelock_prompt_message);
                         showPasswordError();
                     }
                 }
                 break;
-                
-            case PasscodePreferencesActivity.CHANGE_PASSWORD:
+            case PasscodePreferenceFragment.CHANGE_PASSWORD:
                 //verify old password
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
-                    topMessage.setText(R.string.passcode_enter_passcode);
-                    type = PasscodePreferencesActivity.ENABLE_PASSLOCK;
+                    topMessage.setText(R.string.passcodelock_prompt_message);
+                    type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
                 } else {
                     showPasswordError();
                 } 
                 break;
-                
             default:
                 break;
         }
