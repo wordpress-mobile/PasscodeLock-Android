@@ -25,12 +25,6 @@ dependencies {
     android:windowSoftInputMode="stateHidden" >
 </activity>
 <activity
-    android:name="org.wordpress.passcodelock.PasscodePreferencesActivity"
-    android:configChanges="orientation|keyboardHidden|screenSize"
-    android:theme="@style/Theme.Sherlock.Light"
-    android:windowSoftInputMode="stateHidden" >
-</activity>
-<activity
     android:name="org.wordpress.passcodelock.PasscodeManagePasswordActivity"
     android:theme="@style/Theme.Sherlock.Light.NoActionBar"
     android:windowSoftInputMode="stateHidden" >
@@ -42,7 +36,8 @@ dependencies {
 AppLockManager.getInstance().enableDefaultAppLockIfAvailable(this);
 ```
 
-* In your project you need to call `PasscodePreferencesActivity` to lauch the passcode configuration screen.
+* In your project you need to use `PasscodePreferenceFragment` in your `SettingsActivity`. See [WordPress for Android][1] on how to inflate preferences
+  in the parent app.
 
 ## Customization
 If you want to customize the pinlock icon, the one available in the unlock screen, override the `passcode_logo.xml` drawable resource.
