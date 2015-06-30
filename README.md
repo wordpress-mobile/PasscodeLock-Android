@@ -36,8 +36,7 @@ dependencies {
 AppLockManager.getInstance().enableDefaultAppLockIfAvailable(this);
 ```
 
-* In your project you need to use `PasscodePreferenceFragment` in your `SettingsActivity`. See [WordPress for Android][1] on how to inflate preferences
-  in the parent app.
+* In your project you need to use `PasscodePreferenceFragment` in your Preference Activity. See [SettingsActivity][2] as a usage reference. Optionally, you may pass an argument that tells it whether or not to inflate its own preferences, this is only needed if you plan on [providing the preferences](https://github.com/wordpress-mobile/WordPress-Android/blob/develop/WordPress/src/main/res/xml/settings.xml#L39) via [PasscodePreferenceFragment#setPreferences](https://github.com/wordpress-mobile/PasscodeLock-Android/blob/develop/library/src/org/wordpress/passcodelock/PasscodePreferenceFragment.java#L50).
 
 ## Customization
 If you want to customize the pinlock icon, the one available in the unlock screen, override the `passcode_logo.xml` drawable resource.
@@ -53,3 +52,5 @@ If you want to customize the pinlock icon, the one available in the unlock scree
 Dual licensed under MIT, and GPL.
 
 [1]: https://github.com/wordpress-mobile/WordPress-Android
+
+[2]: https://github.com/wordpress-mobile/WordPress-Android/blob/develop/WordPress/src/main/java/org/wordpress/android/ui/prefs/SettingsActivity.java
