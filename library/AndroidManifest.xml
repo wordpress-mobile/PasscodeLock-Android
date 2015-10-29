@@ -6,9 +6,12 @@
     android:versionCode="1"
     android:versionName="0.0.5" >
 
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT" />
+
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
+        android:targetSdkVersion="23" />
 
 <!-- Define the following activities in your project 
     <activity
