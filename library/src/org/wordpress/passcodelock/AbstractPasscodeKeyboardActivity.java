@@ -3,6 +3,8 @@ package org.wordpress.passcodelock;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Gravity;
@@ -18,6 +20,9 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     protected EditText mPinCodeField;
     protected InputFilter[] filters = null;
     protected TextView topMessage = null;
+
+    private FingerprintManagerCompat mFingerprintManager;
+    private CancellationSignal mCancel;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +73,31 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                         }
                     }
                 });
+
+        mFingerprintManager = FingerprintManagerCompat.from(this);
     }
-    
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Hide fingerprint notification if the hardware doesn't support it
+        if (!mFingerprintManager.isHardwareDetected() || !mFingerprintManager.hasEnrolledFingerprints()) {
+            findViewById(R.id.image_fingerprint).setVisibility(View.GONE);
+        } else {
+            mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mCancel != null) {
+            mCancel.cancel();
+        }
+    }
+
     private OnClickListener defaultButtonListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {
@@ -115,6 +143,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     }
     
     protected abstract void onPinLockInserted();
+    protected abstract FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback();
 
     private InputFilter onlyNumber = new InputFilter() {
         @Override

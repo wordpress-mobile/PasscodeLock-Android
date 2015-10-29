@@ -1,7 +1,11 @@
 package org.wordpress.passcodelock;
 
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.widget.TextView;
+
+import java.security.SignatureException;
+import java.util.Arrays;
 
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
     public static final String  KEY_TYPE = "type";
@@ -19,6 +23,46 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         }
     }
 
+    protected FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback() {
+        return new FingerprintManagerCompat.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errMsgId, CharSequence errString) {
+                super.onAuthenticationError(errMsgId, errString);
+            }
+
+            @Override
+            public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+                super.onAuthenticationHelp(helpMsgId, helpString);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+
+                try {
+                    byte[] sig = result.getCryptoObject().getSignature().sign();
+
+                    if (sig != null) {
+                        authenticationSucceded(Arrays.toString(sig));
+                    }
+                } catch (SignatureException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+        };
+    }
+
+    private void authenticationSucceded(String pass) {
+        setResult(RESULT_OK);
+        AppLockManager.getInstance().getCurrentAppLock().setPassword(pass);
+        finish();
+    }
+
     @Override
     protected void onPinLockInserted() {
         String passLock = mPinCodeField.getText().toString();
@@ -27,9 +71,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         switch (type) {
             case PasscodePreferenceFragment.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
-                    setResult(RESULT_OK);
-                    AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
-                    finish();
+                    authenticationSucceded(null);
                 } else {
                     showPasswordError();
                 }
@@ -40,9 +82,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     unverifiedPasscode = passLock;
                 } else {
                     if( passLock.equals(unverifiedPasscode)) {
-                        setResult(RESULT_OK);
-                        AppLockManager.getInstance().getCurrentAppLock().setPassword(passLock);
-                        finish();
+                        authenticationSucceded(passLock);
                     } else {
                         unverifiedPasscode = null;
                         topMessage.setText(R.string.passcodelock_prompt_message);
@@ -51,7 +91,6 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                 }
                 break;
             case PasscodePreferenceFragment.CHANGE_PASSWORD:
-                //verify old password
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
                     topMessage.setText(R.string.passcodelock_prompt_message);
                     type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
