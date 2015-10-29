@@ -136,6 +136,14 @@
             </TableRow>
             
         </TableLayout>
+
+        <Image
+            android:id="@+id/image_fingerprint"
+            android:contentDescription="fingerprint supported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_fp_40px" />
         
     </LinearLayout>
 
