@@ -3,5 +3,6 @@
 <resources>
 
     <dimen name="passcodelock_button_text_size">36sp</dimen>
+    <dimen name="passcodelock_fingerprint_image_margin_top">18dp</dimen>
 
 </resources>

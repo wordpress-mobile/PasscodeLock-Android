@@ -3,11 +3,15 @@ package org.wordpress.passcodelock;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +22,10 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     protected EditText mPinCodeField;
     protected InputFilter[] filters = null;
     protected TextView topMessage = null;
-    
+
+    protected FingerprintManagerCompat mFingerprintManager;
+    protected CancellationSignal mCancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +75,19 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                         }
                     }
                 });
+
+        mFingerprintManager = FingerprintManagerCompat.from(this);
     }
-    
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mCancel != null) {
+            mCancel.cancel();
+        }
+    }
+
     private OnClickListener defaultButtonListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {
@@ -98,8 +116,8 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
 			}
 
             //set the value and move the focus
-            String currentValueString = String.valueOf(currentValue);
-            mPinCodeField.setText(mPinCodeField.getText().toString() + currentValueString);
+            String currentValueString = mPinCodeField.getText() + String.valueOf(currentValue);
+            mPinCodeField.setText(currentValueString);
             mPinCodeField.setSelection(mPinCodeField.length());
 
             if(mPinCodeField.length() >= 4) {
@@ -108,6 +126,23 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
         }
     };
 
+    protected void authenticationSucceeded() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    protected void authenticationFailed() {
+        Thread shake = new Thread() {
+            public void run() {
+                Animation shake = AnimationUtils.loadAnimation(AbstractPasscodeKeyboardActivity.this, R.anim.shake);
+                findViewById(R.id.AppUnlockLinearLayout1).startAnimation(shake);
+                showPasswordError();
+                mPinCodeField.setText("");
+            }
+        };
+        runOnUiThread(shake);
+    }
+
     protected void showPasswordError(){
         Toast toast = Toast.makeText(AbstractPasscodeKeyboardActivity.this, getString(R.string.passcode_wrong_passcode), Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 30);
@@ -115,6 +150,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     }
     
     protected abstract void onPinLockInserted();
+    protected abstract FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback();
 
     private InputFilter onlyNumber = new InputFilter() {
         @Override

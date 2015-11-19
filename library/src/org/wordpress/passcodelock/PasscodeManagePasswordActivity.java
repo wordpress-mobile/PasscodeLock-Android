@@ -1,6 +1,9 @@
 package org.wordpress.passcodelock;
 
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
+import android.view.View;
 import android.widget.TextView;
 
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
@@ -20,6 +23,20 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // Show fingerprint scanner if supported
+        if (mFingerprintManager.isHardwareDetected() &&
+                mFingerprintManager.hasEnrolledFingerprints() &&
+                type == PasscodePreferenceFragment.DISABLE_PASSLOCK) {
+            mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
+            View view = findViewById(R.id.image_fingerprint);
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     protected void onPinLockInserted() {
         String passLock = mPinCodeField.getText().toString();
         mPinCodeField.setText("");
@@ -27,9 +44,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         switch (type) {
             case PasscodePreferenceFragment.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
-                    setResult(RESULT_OK);
                     AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
-                    finish();
+                    authenticationSucceeded();
                 } else {
                     showPasswordError();
                 }
@@ -40,9 +56,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     unverifiedPasscode = passLock;
                 } else {
                     if( passLock.equals(unverifiedPasscode)) {
-                        setResult(RESULT_OK);
                         AppLockManager.getInstance().getCurrentAppLock().setPassword(passLock);
-                        finish();
+                        authenticationSucceeded();
                     } else {
                         unverifiedPasscode = null;
                         topMessage.setText(R.string.passcodelock_prompt_message);
@@ -62,5 +77,33 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
             default:
                 break;
         }
+    }
+
+    @Override
+    protected FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback() {
+        return new FingerprintManagerCompat.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errMsgId, CharSequence errString) {
+                super.onAuthenticationError(errMsgId, errString);
+            }
+
+            @Override
+            public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+                super.onAuthenticationHelp(helpMsgId, helpString);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
+                authenticationSucceeded();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                authenticationFailed();
+            }
+        };
     }
 }
