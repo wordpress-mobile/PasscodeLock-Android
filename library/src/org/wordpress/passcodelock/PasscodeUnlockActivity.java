@@ -11,12 +11,12 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     public void onResume() {
         super.onResume();
 
-        // Hide fingerprint notification if the hardware doesn't support it
-        if (!mFingerprintManager.isHardwareDetected() ||
-            !mFingerprintManager.hasEnrolledFingerprints()) {
-            findViewById(R.id.image_fingerprint).setVisibility(View.GONE);
-        } else {
+        // Show fingerprint scanner if supported
+        if (mFingerprintManager.isHardwareDetected()
+                && mFingerprintManager.hasEnrolledFingerprints()) {
             mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
+            View view = findViewById(R.id.image_fingerprint);
+            view.setVisibility(View.VISIBLE);
         }
     }
 

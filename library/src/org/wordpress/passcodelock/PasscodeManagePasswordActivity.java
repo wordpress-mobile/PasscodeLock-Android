@@ -26,13 +26,13 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
     public void onResume() {
         super.onResume();
 
-        // Hide fingerprint notification if the hardware doesn't support it or user enabling PIN
-        if (!mFingerprintManager.isHardwareDetected() ||
-            !mFingerprintManager.hasEnrolledFingerprints() ||
-            type != PasscodePreferenceFragment.DISABLE_PASSLOCK) {
-            findViewById(R.id.image_fingerprint).setVisibility(View.GONE);
-        } else {
+        // Show fingerprint scanner if supported
+        if (mFingerprintManager.isHardwareDetected() &&
+                mFingerprintManager.hasEnrolledFingerprints() &&
+                type == PasscodePreferenceFragment.DISABLE_PASSLOCK) {
             mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
+            View view = findViewById(R.id.image_fingerprint);
+            view.setVisibility(View.VISIBLE);
         }
     }
 

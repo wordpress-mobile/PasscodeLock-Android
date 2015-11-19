@@ -144,6 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/passcodelock_fingerprint_image_margin_top"
+            android:visibility="gone"
             android:src="@drawable/ic_fp_40px" />
         
     </LinearLayout>
