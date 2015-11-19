@@ -23,9 +23,9 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     protected InputFilter[] filters = null;
     protected TextView topMessage = null;
 
-    private FingerprintManagerCompat mFingerprintManager;
-    private CancellationSignal mCancel;
-    
+    protected FingerprintManagerCompat mFingerprintManager;
+    protected CancellationSignal mCancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,18 +77,6 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                 });
 
         mFingerprintManager = FingerprintManagerCompat.from(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Hide fingerprint notification if the hardware doesn't support it
-        if (!mFingerprintManager.isHardwareDetected() || !mFingerprintManager.hasEnrolledFingerprints()) {
-            findViewById(R.id.image_fingerprint).setVisibility(View.GONE);
-        } else {
-            mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
-        }
     }
 
     @Override
@@ -162,31 +150,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     }
     
     protected abstract void onPinLockInserted();
-    protected FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback() {
-        return new FingerprintManagerCompat.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errMsgId, CharSequence errString) {
-                super.onAuthenticationError(errMsgId, errString);
-            }
-
-            @Override
-            public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-                super.onAuthenticationHelp(helpMsgId, helpString);
-            }
-
-            @Override
-            public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                authenticationSucceeded();
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                authenticationFailed();
-            }
-        };
-    }
+    protected abstract FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback();
 
     private InputFilter onlyNumber = new InputFilter() {
         @Override

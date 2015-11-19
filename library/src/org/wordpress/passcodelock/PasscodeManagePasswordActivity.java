@@ -1,6 +1,9 @@
 package org.wordpress.passcodelock;
 
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
+import android.view.View;
 import android.widget.TextView;
 
 public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActivity {
@@ -16,6 +19,20 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             type = extras.getInt(KEY_TYPE, -1);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Hide fingerprint notification if the hardware doesn't support it or user enabling PIN
+        if (!mFingerprintManager.isHardwareDetected() ||
+            !mFingerprintManager.hasEnrolledFingerprints() ||
+            type != PasscodePreferenceFragment.DISABLE_PASSLOCK) {
+            findViewById(R.id.image_fingerprint).setVisibility(View.GONE);
+        } else {
+            mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
         }
     }
 
@@ -60,5 +77,33 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
             default:
                 break;
         }
+    }
+
+    @Override
+    protected FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback() {
+        return new FingerprintManagerCompat.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errMsgId, CharSequence errString) {
+                super.onAuthenticationError(errMsgId, errString);
+            }
+
+            @Override
+            public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+                super.onAuthenticationHelp(helpMsgId, helpString);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
+                authenticationSucceeded();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                authenticationFailed();
+            }
+        };
     }
 }
