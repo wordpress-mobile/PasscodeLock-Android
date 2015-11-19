@@ -27,9 +27,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         switch (type) {
             case PasscodePreferenceFragment.DISABLE_PASSLOCK:
                 if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
-                    setResult(RESULT_OK);
                     AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
-                    finish();
+                    authenticationSucceeded();
                 } else {
                     showPasswordError();
                 }
@@ -40,9 +39,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     unverifiedPasscode = passLock;
                 } else {
                     if( passLock.equals(unverifiedPasscode)) {
-                        setResult(RESULT_OK);
                         AppLockManager.getInstance().getCurrentAppLock().setPassword(passLock);
-                        finish();
+                        authenticationSucceeded();
                     } else {
                         unverifiedPasscode = null;
                         topMessage.setText(R.string.passcodelock_prompt_message);
