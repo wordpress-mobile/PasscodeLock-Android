@@ -33,7 +33,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     @Override
     protected void onPinLockInserted() {
         String passLock = mPinCodeField.getText().toString();
-        if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
+        if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
             authenticationSucceeded();
         } else {
             authenticationFailed();
@@ -56,6 +56,10 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
             @Override
             public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
+                // Must be called to set internal state (lostFocusDate). Without the call to
+                // verifyPassword the unlock screen will show multiple times
+                AppLockManager.getInstance().getCurrentAppLock().verifyPassword(
+                        AbstractAppLock.FINGERPRINT_VERIFICATION_BYPASS);
                 authenticationSucceeded();
             }
 

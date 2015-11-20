@@ -43,7 +43,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
 
         switch (type) {
             case PasscodePreferenceFragment.DISABLE_PASSLOCK:
-                if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
+                if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
                     AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
                     authenticationSucceeded();
                 } else {
@@ -51,11 +51,11 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                 }
                 break;
             case PasscodePreferenceFragment.ENABLE_PASSLOCK:
-                if( unverifiedPasscode == null ) {
+                if (unverifiedPasscode == null) {
                     ((TextView) findViewById(R.id.passcodelock_prompt)).setText(R.string.passcode_re_enter_passcode);
                     unverifiedPasscode = passLock;
                 } else {
-                    if( passLock.equals(unverifiedPasscode)) {
+                    if (passLock.equals(unverifiedPasscode)) {
                         AppLockManager.getInstance().getCurrentAppLock().setPassword(passLock);
                         authenticationSucceeded();
                     } else {
@@ -67,7 +67,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                 break;
             case PasscodePreferenceFragment.CHANGE_PASSWORD:
                 //verify old password
-                if( AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock) ) {
+                if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
                     topMessage.setText(R.string.passcodelock_prompt_message);
                     type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
                 } else {

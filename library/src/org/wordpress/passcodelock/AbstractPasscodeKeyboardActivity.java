@@ -120,7 +120,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
             mPinCodeField.setText(currentValueString);
             mPinCodeField.setSelection(mPinCodeField.length());
 
-            if(mPinCodeField.length() >= 4) {
+            if (mPinCodeField.length() >= 4) {
                 onPinLockInserted();
             }
         }
