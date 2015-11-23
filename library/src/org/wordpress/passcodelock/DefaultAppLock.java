@@ -56,7 +56,12 @@ public class DefaultAppLock extends AbstractAppLock {
         lostFocusDate = null;
     }
 
-    public boolean verifyPassword( String password ){
+    public boolean verifyPassword( String password ) {
+        if (FINGERPRINT_VERIFICATION_BYPASS.equals(password)) {
+            lostFocusDate = new Date();
+            return true;
+        }
+
     	String storedPassword = "";
 
     	if (settings.contains(OLD_APP_LOCK_PASSWORD_PREF_KEY)) { //add back-compatibility
