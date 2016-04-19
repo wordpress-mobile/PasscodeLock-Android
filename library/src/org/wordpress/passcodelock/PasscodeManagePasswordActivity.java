@@ -19,6 +19,9 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             type = extras.getInt(KEY_TYPE, -1);
+            if (type ==0){
+                ((TextView) findViewById(R.id.passcodelock_prompt)).setText(R.string.passcode_set_for_first_time);
+            }
         }
     }
 
