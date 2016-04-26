@@ -43,8 +43,8 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
 
         switch (type) {
             case PasscodePreferenceFragment.DISABLE_PASSLOCK:
-                if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
-                    AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
+                if (AppLockManager.getInstance().getAppLock().verifyPassword(passLock)) {
+                    AppLockManager.getInstance().getAppLock().setPassword(null);
                     authenticationSucceeded();
                 } else {
                     showPasswordError();
@@ -56,7 +56,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     unverifiedPasscode = passLock;
                 } else {
                     if (passLock.equals(unverifiedPasscode)) {
-                        AppLockManager.getInstance().getCurrentAppLock().setPassword(passLock);
+                        AppLockManager.getInstance().getAppLock().setPassword(passLock);
                         authenticationSucceeded();
                     } else {
                         unverifiedPasscode = null;
@@ -67,7 +67,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                 break;
             case PasscodePreferenceFragment.CHANGE_PASSWORD:
                 //verify old password
-                if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
+                if (AppLockManager.getInstance().getAppLock().verifyPassword(passLock)) {
                     topMessage.setText(R.string.passcodelock_prompt_message);
                     type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
                 } else {
@@ -95,7 +95,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
             @Override
             public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                AppLockManager.getInstance().getCurrentAppLock().setPassword(null);
+                AppLockManager.getInstance().getAppLock().setPassword(null);
                 authenticationSucceeded();
             }
 

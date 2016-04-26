@@ -19,18 +19,17 @@ public class AppLockManager {
         currentAppLocker = new DefaultAppLock(currentApp);
         currentAppLocker.enable();
     }
+
+    public boolean isDefaultLock() {
+        return getAppLock() != null && getAppLock() instanceof DefaultAppLock;
+    }
     
     /**
      * Default App lock is available on Android-v14 or higher.
      * @return True if the Passcode Lock feature is available on the device
      */
-    public boolean isAppLockFeatureEnabled(){
-    	if( currentAppLocker == null )
-    		return false;
-    	if( currentAppLocker instanceof DefaultAppLock)
-    		return (android.os.Build.VERSION.SDK_INT >= 14);
-    	else 
-    		return true;
+    public boolean isAppLockFeatureEnabled() {
+        return getAppLock() != null && (!isDefaultLock() || isSupportedApi());
     }
     
     public void setCurrentAppLock(AbstractAppLock newAppLocker) {
@@ -40,13 +39,16 @@ public class AppLockManager {
         currentAppLocker = newAppLocker;
     }
     
-    public AbstractAppLock getCurrentAppLock() {
+    public AbstractAppLock getAppLock() {
         return currentAppLocker;
     }
     
     public void setExtendedTimeout(){
-        if ( currentAppLocker == null )
-            return;
-        currentAppLocker.setOneTimeTimeout(AbstractAppLock.EXTENDED_TIMEOUT);
+        if (getAppLock() == null) return;
+        getAppLock().setOneTimeTimeout(AbstractAppLock.EXTENDED_TIMEOUT_S);
+    }
+
+    private boolean isSupportedApi() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 }

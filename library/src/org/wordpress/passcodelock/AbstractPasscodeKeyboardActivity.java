@@ -88,6 +88,10 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
         }
     }
 
+    protected AbstractAppLock getAppLock() {
+        return AppLockManager.getInstance().getAppLock();
+    }
+
     private OnClickListener defaultButtonListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {

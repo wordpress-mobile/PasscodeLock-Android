@@ -24,7 +24,7 @@ public class DefaultAppLock extends AbstractAppLock {
     private SharedPreferences settings;
     private Date lostFocusDate;
 
-    //Add back-compatibility
+    private static final String UNLOCK_CLASS_NAME = PasscodeUnlockActivity.class.getName();
     private static final String OLD_PASSWORD_SALT = "sadasauidhsuyeuihdahdiauhs";
     private static final String OLD_APP_LOCK_PASSWORD_PREF_KEY = "wp_app_lock_password_key";
 
