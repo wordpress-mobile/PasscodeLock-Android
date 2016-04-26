@@ -1,24 +1,23 @@
 package org.wordpress.passcodelock;
 
 import android.app.Application;
+import android.os.Build;
 
 public class AppLockManager {
-
     private static AppLockManager instance;
     private AbstractAppLock currentAppLocker;
-    
+
     public static AppLockManager getInstance() {
         if (instance == null) {
             instance = new AppLockManager();
         }
         return instance;
     }
-        
+
     public void enableDefaultAppLockIfAvailable(Application currentApp) {
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            currentAppLocker = new DefaultAppLock(currentApp);
-            currentAppLocker.enable();
-        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return;
+        currentAppLocker = new DefaultAppLock(currentApp);
+        currentAppLocker.enable();
     }
     
     /**
@@ -45,12 +44,6 @@ public class AppLockManager {
         return currentAppLocker;
     }
     
-    /*
-     * Convenience method used to extend the default timeout.
-     * 
-     * There are situations where an activity will start a different application with an intent.  
-     * In these situations call this method right before leaving the app.
-     */
     public void setExtendedTimeout(){
         if ( currentAppLocker == null )
             return;
