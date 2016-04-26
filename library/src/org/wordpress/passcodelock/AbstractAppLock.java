@@ -1,6 +1,8 @@
 package org.wordpress.passcodelock;
 
+import android.annotation.TargetApi;
 import android.app.Application;
+import android.os.Build;
 
 /**
  * Interface for AppLock implementations.
@@ -16,21 +18,42 @@ import android.app.Application;
  * that launch external applications with the expectation that the user will return to the calling
  * application shortly.
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public abstract class AbstractAppLock implements Application.ActivityLifecycleCallbacks {
     public static final String FINGERPRINT_VERIFICATION_BYPASS = "fingerprint-bypass__";
     public static final int DEFAULT_TIMEOUT_S = 2;
     public static final int EXTENDED_TIMEOUT_S = 60;
 
+    private int mLockTimeout = DEFAULT_TIMEOUT_S;
+    private String[] mExemptActivities;
 
-    protected int lockTimeOut = DEFAULT_TIMEOUT;
-    protected String[] appLockDisabledActivities = new String[0];
-
-    public void setOneTimeTimeout(int timeout) {
-        this.lockTimeOut = timeout;
+    public boolean isExemptActivity(String name) {
+        if (name == null) return false;
+        for (String activityName : getExemptActivities()) {
+            if (name.equals(activityName)) return true;
+        }
+        return false;
     }
 
-    public void setDisabledActivities( String[] disabledActs ) {
-    	this.appLockDisabledActivities = disabledActs;
+    public void setExemptActivities(String[] exemptActivities) {
+        mExemptActivities = exemptActivities;
+    }
+
+    public String[] getExemptActivities() {
+        if (mExemptActivities == null) setExemptActivities(new String[0]);
+        return mExemptActivities;
+    }
+
+    public void setOneTimeTimeout(int timeout) {
+        mLockTimeout = timeout;
+    }
+
+    public int getTimeout() {
+        return mLockTimeout;
+    }
+
+    protected boolean isFingerprintPassword(String password) {
+        return FINGERPRINT_VERIFICATION_BYPASS.equals(password);
     }
 
     public abstract void enable();
