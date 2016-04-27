@@ -18,6 +18,10 @@ import android.text.TextUtils;
 import android.util.Base64;
 
 public class DefaultAppLock extends AbstractAppLock {
+    public static boolean isSupportedApi() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+    }
+
     private static final String UNLOCK_CLASS_NAME = PasscodeUnlockActivity.class.getName();
     private static final String OLD_PASSWORD_SALT = "sadasauidhsuyeuihdahdiauhs";
     private static final String OLD_APP_LOCK_PASSWORD_PREF_KEY = "wp_app_lock_password_key";
@@ -59,17 +63,17 @@ public class DefaultAppLock extends AbstractAppLock {
     @Override public void onActivityStopped(Activity arg0) {}
 
     public void enable() {
-    	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return;
-
-        if (isPasswordLocked()) {
+        if (!isPasswordLocked()) return;
+        if (isSupportedApi()) {
             mCurrentApp.unregisterActivityLifecycleCallbacks(this);
             mCurrentApp.registerActivityLifecycleCallbacks(this);
         }
     }
 
     public void disable() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return;
-        mCurrentApp.unregisterActivityLifecycleCallbacks(this);
+        if (isSupportedApi()) {
+            mCurrentApp.unregisterActivityLifecycleCallbacks(this);
+        }
     }
 
     public boolean isPasswordLocked() {

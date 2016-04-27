@@ -1,7 +1,6 @@
 package org.wordpress.passcodelock;
 
 import android.app.Application;
-import android.os.Build;
 
 public class AppLockManager {
     private static AppLockManager instance;
@@ -15,7 +14,7 @@ public class AppLockManager {
     }
 
     public void enableDefaultAppLockIfAvailable(Application currentApp) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return;
+        if (!DefaultAppLock.isSupportedApi()) return;
         currentAppLocker = new DefaultAppLock(currentApp);
         currentAppLocker.enable();
     }
@@ -29,7 +28,7 @@ public class AppLockManager {
      * @return True if the Passcode Lock feature is available on the device
      */
     public boolean isAppLockFeatureEnabled() {
-        return getAppLock() != null && (!isDefaultLock() || isSupportedApi());
+        return getAppLock() != null && (!isDefaultLock() || DefaultAppLock.isSupportedApi());
     }
     
     public void setCurrentAppLock(AbstractAppLock newAppLocker) {
@@ -46,9 +45,5 @@ public class AppLockManager {
     public void setExtendedTimeout(){
         if (getAppLock() == null) return;
         getAppLock().setOneTimeTimeout(AbstractAppLock.EXTENDED_TIMEOUT_S);
-    }
-
-    private boolean isSupportedApi() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 }
