@@ -24,8 +24,8 @@ public class AppLockManager {
     }
     
     /**
-     * Default App lock is available on Android-v14 or higher.
-     * @return True if the Passcode Lock feature is available on the device
+     * @return true when an App lock is available. It could be either a the Default App lock on
+     * Android-v14 or higher, or a non default App lock
      */
     public boolean isAppLockFeatureEnabled() {
         return getAppLock() != null && (!isDefaultLock() || DefaultAppLock.isSupportedApi());
