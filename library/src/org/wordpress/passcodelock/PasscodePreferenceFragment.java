@@ -61,7 +61,7 @@ public class PasscodePreferenceFragment extends PreferenceFragment
      *  always true to indicate that the request was handled
      */
     private boolean handlePasscodeToggleClick() {
-        int type = AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked()
+        int type = AppLockManager.getInstance().getAppLock().isPasswordLocked()
                 ? DISABLE_PASSLOCK : ENABLE_PASSLOCK;
         Intent i = new Intent(getActivity(), PasscodeManagePasswordActivity.class);
         i.putExtra(PasscodeManagePasswordActivity.KEY_TYPE, type);
@@ -94,7 +94,7 @@ public class PasscodePreferenceFragment extends PreferenceFragment
             mTogglePasscodePreference.setOnPreferenceClickListener(this);
             mChangePasscodePreference.setOnPreferenceClickListener(this);
 
-            if (AppLockManager.getInstance().getCurrentAppLock().isPasswordLocked()) {
+            if (AppLockManager.getInstance().getAppLock().isPasswordLocked()) {
                 mTogglePasscodePreference.setTitle(R.string.passcode_turn_off);
                 mChangePasscodePreference.setEnabled(true);
             } else {

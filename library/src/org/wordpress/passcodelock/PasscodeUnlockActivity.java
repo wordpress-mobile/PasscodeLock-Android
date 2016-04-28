@@ -6,15 +6,13 @@ import android.support.v4.os.CancellationSignal;
 import android.view.View;
 
 public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
-
     @Override
     public void onResume() {
         super.onResume();
 
-        // Show fingerprint scanner if supported
-        if (mFingerprintManager.isHardwareDetected()
-                && mFingerprintManager.hasEnrolledFingerprints()) {
-            mFingerprintManager.authenticate(null, 0, mCancel = new CancellationSignal(), getFingerprintCallback(), null);
+        if (isFingerprintSupported()) {
+            mCancel = new CancellationSignal();
+            mFingerprintManager.authenticate(null, 0, mCancel, getFingerprintCallback(), null);
             View view = findViewById(R.id.image_fingerprint);
             view.setVisibility(View.VISIBLE);
         }
@@ -22,7 +20,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
 
     @Override
     public void onBackPressed() {
-        AppLockManager.getInstance().getCurrentAppLock().forcePasswordLock();
+        getAppLock().forcePasswordLock();
         Intent i = new Intent();
         i.setAction(Intent.ACTION_MAIN);
         i.addCategory(Intent.CATEGORY_HOME);
@@ -33,7 +31,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     @Override
     protected void onPinLockInserted() {
         String passLock = mPinCodeField.getText().toString();
-        if (AppLockManager.getInstance().getCurrentAppLock().verifyPassword(passLock)) {
+        if (getAppLock().verifyPassword(passLock)) {
             authenticationSucceeded();
         } else {
             authenticationFailed();
@@ -44,30 +42,24 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     protected FingerprintManagerCompat.AuthenticationCallback getFingerprintCallback() {
         return new FingerprintManagerCompat.AuthenticationCallback() {
             @Override
-            public void onAuthenticationError(int errMsgId, CharSequence errString) {
-                super.onAuthenticationError(errMsgId, errString);
-            }
-
-            @Override
-            public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-                super.onAuthenticationHelp(helpMsgId, helpString);
-            }
-
-            @Override
             public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                // Must be called to set internal state (lostFocusDate). Without the call to
-                // verifyPassword the unlock screen will show multiple times
-                AppLockManager.getInstance().getCurrentAppLock().verifyPassword(
-                        AbstractAppLock.FINGERPRINT_VERIFICATION_BYPASS);
+                // without the call to verifyPassword the unlock screen will show multiple times
+                getAppLock().verifyPassword(AbstractAppLock.FINGERPRINT_VERIFICATION_BYPASS);
                 authenticationSucceeded();
             }
 
             @Override
             public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
                 authenticationFailed();
             }
+
+            @Override public void onAuthenticationError(int errMsgId, CharSequence errString) { }
+            @Override public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) { }
         };
+    }
+
+    private boolean isFingerprintSupported() {
+        return mFingerprintManager.isHardwareDetected() &&
+               mFingerprintManager.hasEnrolledFingerprints();
     }
 }
