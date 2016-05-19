@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v4.os.CancellationSignal;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
@@ -51,6 +52,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
         filters[1] = onlyNumber;
         
         mPinCodeField = (EditText)findViewById(R.id.pin_field);
+        mPinCodeField.setInputType(InputType.TYPE_NULL);
         
         //setup the keyboard
         findViewById(R.id.button0).setOnClickListener(defaultButtonListener);
