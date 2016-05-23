@@ -51,7 +51,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
         filters[1] = onlyNumber;
         
         mPinCodeField = (EditText)findViewById(R.id.pin_field);
-        
+
         //setup the keyboard
         findViewById(R.id.button0).setOnClickListener(defaultButtonListener);
         findViewById(R.id.button1).setOnClickListener(defaultButtonListener);

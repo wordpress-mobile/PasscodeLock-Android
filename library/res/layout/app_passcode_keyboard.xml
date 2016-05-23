@@ -48,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="38dp"
             android:hint="@string/passcodelock_hint"
+            android:focusable="false"
+            android:clickable="false"
             android:maxLength="4"
             android:inputType="numberPassword"
             android:background="@color/white" />
