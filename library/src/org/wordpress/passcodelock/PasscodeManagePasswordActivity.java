@@ -47,7 +47,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     AppLockManager.getInstance().getAppLock().setPassword(null);
                     authenticationSucceeded();
                 } else {
-                    authenticationFailed();
+                    showPasswordError();
                 }
                 break;
             case PasscodePreferenceFragment.ENABLE_PASSLOCK:
@@ -61,7 +61,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     } else {
                         unverifiedPasscode = null;
                         topMessage.setText(R.string.passcodelock_prompt_message);
-                        authenticationFailed();
+                        showPasswordError();
                     }
                 }
                 break;
@@ -71,7 +71,7 @@ public class PasscodeManagePasswordActivity extends AbstractPasscodeKeyboardActi
                     topMessage.setText(R.string.passcodelock_prompt_message);
                     type = PasscodePreferenceFragment.ENABLE_PASSLOCK;
                 } else {
-                    authenticationFailed();
+                    showPasswordError();
                 } 
                 break;
             default:
