@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Strings for the Settings interface -->
+    <string name="app_name">Sample</string>
+    <string name="action_settings">Settings</string>
+    <string name="preferences_header_security">Security</string>
+
+    <!-- Strings for customizing the Passcode Lock interface -->
+    <string name="cd_passcodelock_logo">PasscodeLock Logo</string>
+    <string name="passcode_fingerprint_supported">Fingerprint Supported</string>
+    <string name="passcode_change_passcode">Change passcode</string>
+    <string name="passcode_enter_old_passcode">Enter old passcode</string>
+    <string name="passcode_re_enter_passcode">Enter passcode again</string>
+    <string name="passcode_turn_off">Disable lock</string>
+    <string name="passcode_turn_on">Enable lock</string>
+    <string name="passcode_wrong_passcode">Wrong passcode.</string>
+    <string name="passcodelock_prompt_message">Enter passcode</string>
+
+</resources>

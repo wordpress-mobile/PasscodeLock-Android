@@ -1,0 +1,15 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:background="@drawable/img_empty"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" >
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/img_default" >
+        </bitmap>
+    </item>
+
+</layer-list>

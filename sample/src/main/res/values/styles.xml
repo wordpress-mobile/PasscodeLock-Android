@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Styles for the Settings interface -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+    </style>
+
+    <!-- Styles for customizing the Passcode Lock interface -->
+    <style name="PasscodeEditTextStyle">
+        <item name="android:background">@color/primary</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/passcodelock_field_hint_text_color</item>
+    </style>
+
+    <style name="PasscodeKeyboardButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/passcodelock_button_text_size</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlActivated">@color/list_row_selected</item>
+        <item name="colorControlHighlight">@color/list_row_selected</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+    </style>
+
+</resources>

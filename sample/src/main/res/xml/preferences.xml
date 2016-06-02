@@ -1,0 +1,26 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="security_header"
+        android:title="@string/preferences_header_security">
+
+        <!-- A 'parent' preference, which enables/disables child preferences (below)
+             when checked/unchecked. -->
+        <Preference
+            android:key="@string/pref_key_passcode_toggle"
+            android:persistent="false"
+            android:title="@string/passcode_turn_on" >
+        </Preference>
+
+        <!-- Allows the user to change a PIN in the 'Security' category.
+             NOTE: This preference will be enabled only when the checkbox above is checked. -->
+        <Preference
+            android:key="@string/pref_key_change_passcode"
+            android:persistent="false"
+            android:title="@string/passcode_change_passcode" >
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
