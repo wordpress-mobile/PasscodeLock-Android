@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "org.wordpress.passcodelock.sample"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -22,7 +22,7 @@ android {
 
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
     }
 }
 

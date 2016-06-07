@@ -1,9 +1,7 @@
 package org.wordpress.passcodelock.sample;
 
 import android.app.FragmentManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
@@ -70,13 +68,8 @@ public class SamplePreferenceActivity extends AppCompatActivity {
 
         if (togglePreference != null && changePreference != null) {
             mPasscodePreferenceFragment.setPreferences(togglePreference, changePreference);
-            boolean isPasswordLocked = AppLockManager.getInstance().getAppLock().isPasswordLocked();
-
-            if (Build.VERSION.SDK_INT < 14) {
-                ((CheckBoxPreference) togglePreference).setChecked(isPasswordLocked);
-            } else {
-                ((SwitchPreference) togglePreference).setChecked(isPasswordLocked);
-            }
+            ((SwitchPreference) togglePreference).setChecked(
+                    AppLockManager.getInstance().getAppLock().isPasswordLocked());
         }
     }
 }
