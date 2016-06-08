@@ -115,6 +115,11 @@ uploadArchives {
                         name 'Maxime Biais'
                         email 'maxime@automattic.com'
                     }
+                    developer {
+                        id 'theck13'
+                        name 'Tyler Heck'
+                        email 'tyler@automattic.com'
+                    }
                 }
             }
         }

@@ -1,0 +1,11 @@
+.DS_Store
+
+bin/
+gen/
+build/
+
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/

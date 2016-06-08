@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Colors for the Settings interface -->
+    <color name="accent">#ff78dcfa</color>
+    <color name="primary">#ff0087be</color>
+    <color name="primary_dark">#ff006b98</color>
+
+    <!-- Colors for customizing the Passcode Lock interface -->
+    <color name="passcodelock_background">@color/primary</color>
+    <color name="passcodelock_button_background_color">@android:color/transparent</color>
+    <color name="passcodelock_button_text_color">@color/black</color>
+    <color name="passcodelock_field_background_color">@color/white</color>
+    <color name="passcodelock_field_hint_text_color">#5f5f5f</color>
+    <color name="passcodelock_field_text_color">#444444</color>
+    <color name="passcodelock_prompt_text_color">@color/white</color>
+
+</resources>
