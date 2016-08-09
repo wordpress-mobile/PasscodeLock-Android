@@ -49,7 +49,7 @@ If you want to customize the pinlock icon, the one available in the unlock scree
 Publish it to bintray:
 
 ```shell
-$ ./gradlew publishToMavenLocal bintrayUpload -PbintrayUser=FIXME -PbintrayKey=FIXME -PdryRun=false
+$ ./gradlew assemble publishToMavenLocal bintrayUpload -PbintrayUser=FIXME -PbintrayKey=FIXME -PdryRun=false
 ```
 
 ## Apps that use this library
