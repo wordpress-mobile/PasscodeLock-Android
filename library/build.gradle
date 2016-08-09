@@ -1,32 +1,33 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
-apply plugin: 'signing'
+apply plugin: 'com.novoda.bintray-release'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         versionName "1.2.0"
         minSdkVersion 9
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
 
     sourceSets {
@@ -50,78 +51,15 @@ android.buildTypes.all { buildType ->
     }
 }
 
-signing {
-    required {
-        project.properties.containsKey("signing.keyId") && project.properties.containsKey("signing.secretKeyRingFile")
-    }
-    sign configurations.archives
-}
-
-version android.defaultConfig.versionName
-group = "org.wordpress"
-archivesBaseName = "passcodelock"
-
-// http://central.sonatype.org/pages/gradle.html
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: project.properties.ossrhUsername, password: project.properties.ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: project.properties.ossrhUsername, password: project.properties.ossrhPassword)
-            }
-
-            pom.project {
-                name 'PasscodeLock-Android'
-                packaging 'aar'
-                description 'Android Library that provides passcode lock to your app'
-                url 'https://github.com/wordpress-mobile/PasscodeLock-Android'
-                scm {
-                    connection 'scm:git:https://github.com/wordpress-mobile/PasscodeLock-Android.git'
-                    developerConnection 'scm:git:https://github.com/wordpress-mobile/PasscodeLock-Android.git'
-                    url 'https://github.com/wordpress-mobile/PasscodeLock-Android'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'http://opensource.org/licenses/MIT'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'daniloercoli'
-                        name 'Danilo Ercoli'
-                        email 'danilo@automattic.com'
-                    }
-                    developer {
-                        id 'tonyr59h'
-                        name 'Anthony Rankin'
-                        email 'tonyr@automattic.com'
-                    }
-                    developer {
-                        id 'roundhill'
-                        name 'Dan Roundhill'
-                        email 'dan@automattic.com'
-                    }
-                    developer {
-                        id 'maxme'
-                        name 'Maxime Biais'
-                        email 'maxime@automattic.com'
-                    }
-                    developer {
-                        id 'theck13'
-                        name 'Tyler Heck'
-                        email 'tyler@automattic.com'
-                    }
-                }
-            }
-        }
-    }
+publish {
+    userOrg = 'wordpress-mobile'
+    groupId = 'org.wordpress'
+    uploadName = 'passcodelock'
+    artifactId = 'passcodelock'
+    description = ' Android Library that provides passcode lock to your app'
+    publishVersion = android.defaultConfig.versionName
+    licences = ['MIT', 'GPL-2.0']
+    website = 'https://github.com/wordpress-mobile/PasscodeLock-Android'
+    dryRun = 'false'
+    autoPublish = 'true'
 }
