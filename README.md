@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/wordpress-mobile/maven/passcodelock/images/download.svg) ](https://bintray.com/wordpress-mobile/maven/passcodelock/_latestVersion)
+
 # App passcode library for Android
 
 An app passcode protection implementation, which allows user to protect the app with a four digit code.
