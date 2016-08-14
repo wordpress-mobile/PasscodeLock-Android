@@ -62,4 +62,8 @@ public abstract class AbstractAppLock implements Application.ActivityLifecycleCa
     public abstract boolean verifyPassword(String password);
     public abstract boolean isPasswordLocked();
     public abstract boolean setPassword(String password);
+    public abstract boolean isFingerprintEnabled();
+    public abstract void enableFingerprint();
+    public abstract void disableFingerprint();
+
 }
