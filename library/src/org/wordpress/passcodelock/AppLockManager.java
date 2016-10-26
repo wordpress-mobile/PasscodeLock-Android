@@ -15,6 +15,17 @@ public class AppLockManager {
 
     public void enableDefaultAppLockIfAvailable(Application currentApp) {
         if (!DefaultAppLock.isSupportedApi()) return;
+
+        if (currentAppLocker != null) {
+            if (currentAppLocker instanceof DefaultAppLock) {
+                // A previous default applocker is already in place
+                // No need to re-enable it
+                return;
+            }
+            // A previous NON-default applockr is in place. Disable it.
+            currentAppLocker.disable();
+        }
+
         currentAppLocker = new DefaultAppLock(currentApp);
         currentAppLocker.enable();
     }
