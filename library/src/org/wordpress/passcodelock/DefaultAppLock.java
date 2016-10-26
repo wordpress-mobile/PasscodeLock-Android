@@ -94,15 +94,15 @@ public class DefaultAppLock extends AbstractAppLock {
 
     @Override
     public boolean isFingerprintEnabled() {
-        return mSharedPreferences.getBoolean(BuildConfig.FINGERPRINT_ENABLED, true);
+        return mSharedPreferences.getBoolean(BuildConfig.FINGERPRINT_ENABLED_KEY, true);
     }
 
     public void enableFingerprint() {
-        mSharedPreferences.edit().putBoolean(BuildConfig.FINGERPRINT_ENABLED, true).apply();
+        mSharedPreferences.edit().putBoolean(BuildConfig.FINGERPRINT_ENABLED_KEY, true).apply();
     }
 
     public void disableFingerprint() {
-        mSharedPreferences.edit().putBoolean(BuildConfig.FINGERPRINT_ENABLED, false).apply();
+        mSharedPreferences.edit().putBoolean(BuildConfig.FINGERPRINT_ENABLED_KEY, false).apply();
     }
 
     public void forcePasswordLock() {

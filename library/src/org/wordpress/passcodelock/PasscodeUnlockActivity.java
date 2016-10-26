@@ -62,8 +62,5 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
         return mFingerprintManager.isHardwareDetected() &&
                mFingerprintManager.hasEnrolledFingerprints() &&
                getAppLock().isFingerprintEnabled();
-
-
-
     }
 }
