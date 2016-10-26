@@ -17,18 +17,19 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:preference-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:preference-v7:25.0.0'
 }
 
 android {
-    compileSdkVersion 24
+    publishNonDefault true
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
 
     defaultConfig {
         versionName "1.4.0"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 25
     }
 
     sourceSets {
