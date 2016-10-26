@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 
 public class PasscodePreferenceFragment extends PreferenceFragment
-        implements Preference.OnPreferenceClickListener {
+        implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
     public static final String KEY_SHOULD_INFLATE = "should-inflate";
     public static final int ENABLE_PASSLOCK  = 0;
     public static final int DISABLE_PASSLOCK = 1;
@@ -41,6 +42,31 @@ public class PasscodePreferenceFragment extends PreferenceFragment
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (newValue == null) return false;
+        String preferenceKey = preference.getKey() != null ? preference.getKey() : "";
+        if (!preferenceKey.equals(getString(R.string.pref_key_passcode_toggle))) {
+            // Make sure we're updating the correct preference item.
+            // Actually this check is not even required, since we've one item only that has set the
+            // OnPreferenceChangeListener.
+            return false;
+        }
+
+        Boolean newValueBool = (Boolean) newValue;
+        boolean oldValue = ((SwitchPreference)mTogglePasscodePreference).isChecked();
+        if (newValueBool == oldValue) {
+            // Already updated. Do not call the setup activity.
+            // This method get called twice if the click is on the row (not on the toggle visual item)
+            // on devices Pre-Lollip.
+            return true;
+        }
+
+        handlePasscodeToggleClick();
+
+        return true;
     }
 
     /**
@@ -91,8 +117,8 @@ public class PasscodePreferenceFragment extends PreferenceFragment
      */
     private void refreshPreferenceState() {
         if (mTogglePasscodePreference != null && mChangePasscodePreference != null) {
-            mTogglePasscodePreference.setOnPreferenceClickListener(this);
             mChangePasscodePreference.setOnPreferenceClickListener(this);
+            mTogglePasscodePreference.setOnPreferenceChangeListener(this);
 
             if (AppLockManager.getInstance().getAppLock().isPasswordLocked()) {
                 mTogglePasscodePreference.setTitle(R.string.passcode_turn_off);
