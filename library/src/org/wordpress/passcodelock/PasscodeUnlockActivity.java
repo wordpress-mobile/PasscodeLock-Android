@@ -10,7 +10,7 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     public void onResume() {
         super.onResume();
 
-        if (isFingerprintSupported()) {
+        if (isFingerprintSupportedAndEnabled()) {
             mCancel = new CancellationSignal();
             mFingerprintManager.authenticate(null, 0, mCancel, getFingerprintCallback(), null);
             View view = findViewById(R.id.image_fingerprint);
@@ -58,8 +58,9 @@ public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
         };
     }
 
-    private boolean isFingerprintSupported() {
+    private boolean isFingerprintSupportedAndEnabled() {
         return mFingerprintManager.isHardwareDetected() &&
-               mFingerprintManager.hasEnrolledFingerprints();
+               mFingerprintManager.hasEnrolledFingerprints() &&
+               getAppLock().isFingerprintEnabled();
     }
 }

@@ -56,6 +56,27 @@ public abstract class AbstractAppLock implements Application.ActivityLifecycleCa
         return FINGERPRINT_VERIFICATION_BYPASS.equals(password);
     }
 
+    /**
+     * Whether the fingerprint unlocking should be available as option in the unlock screen.
+     * Default is true, but implementation can override this and make their choice.
+     *
+     * Note that this doesn't affect system setting, the device must already have fingerprint unlock
+     * available and correctly working.
+     *
+     * @return true if fingerprint unlock should be enabled on the lock screen
+     */
+    public boolean isFingerprintEnabled() {
+        return true;
+    }
+
+    // Stub methods to avoid sub-classes to override to many unused methods.
+    public boolean enableFingerprint() {
+        return true;
+    }
+    public boolean disableFingerprint() {
+        return false;
+    }
+
     public abstract void enable();
     public abstract void disable();
     public abstract void forcePasswordLock();
