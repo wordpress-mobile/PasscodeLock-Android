@@ -27,7 +27,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        versionName "1.4.0"
+        versionName "1.5.0"
         minSdkVersion 14
         targetSdkVersion 25
     }
