@@ -35,9 +35,7 @@ public class PasscodePreferenceFragment extends PreferenceFragment
     public boolean onPreferenceClick(Preference preference) {
         String preferenceKey = preference.getKey() != null ? preference.getKey() : "";
 
-        if (preferenceKey.equals(getString(R.string.pref_key_passcode_toggle))) {
-            return handlePasscodeToggleClick();
-        } else if (preferenceKey.equals(getString(R.string.pref_key_change_passcode))) {
+       if (preferenceKey.equals(getString(R.string.pref_key_change_passcode))) {
             return handleChangePasscodeClick();
         }
 
