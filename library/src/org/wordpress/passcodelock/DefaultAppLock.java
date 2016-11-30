@@ -39,7 +39,7 @@ public class DefaultAppLock extends AbstractAppLock {
     /** {@link PasscodeUnlockActivity} is always exempt. */
     @Override
     public boolean isExemptActivity(String activityName) {
-        return !UNLOCK_CLASS_NAME.equals(activityName) && super.isExemptActivity(activityName);
+        return UNLOCK_CLASS_NAME.equals(activityName) || super.isExemptActivity(activityName);
     }
 
     @Override
