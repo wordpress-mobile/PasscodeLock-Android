@@ -1,4 +1,9 @@
-[ ![Download](https://api.bintray.com/packages/wordpress-mobile/maven/passcodelock/images/download.svg) ](https://bintray.com/wordpress-mobile/maven/passcodelock/_latestVersion)
+* * *
+
+**Not Maintained!**  
+*This project is no longer being actively maintained. Use at your own risk!*
+
+* * *
 
 # App passcode library for Android
 
