@@ -68,6 +68,10 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                 new OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
+                        if (arg0.isHapticFeedbackEnabled()) {
+                            arg0.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                        }
+
                         String curText = mPinCodeField.getText().toString();
 
                         if (curText.length() > 0) {
