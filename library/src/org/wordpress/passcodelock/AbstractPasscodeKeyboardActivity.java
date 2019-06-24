@@ -8,6 +8,7 @@ import android.support.v4.os.CancellationSignal;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Gravity;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -118,6 +119,10 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
 			} else if (id == R.id.button9) {
 				currentValue = 9;
 			}
+
+            if (arg0.isHapticFeedbackEnabled()) {
+                arg0.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+            }
 
             //set the value and move the focus
             String currentValueString = mPinCodeField.getText() + String.valueOf(currentValue);
