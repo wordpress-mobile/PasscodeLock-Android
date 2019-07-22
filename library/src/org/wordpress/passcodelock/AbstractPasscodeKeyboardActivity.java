@@ -3,8 +3,6 @@ package org.wordpress.passcodelock;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v4.os.CancellationSignal;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Gravity;
@@ -16,6 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
 
 public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     public static final String KEY_MESSAGE = "message";
