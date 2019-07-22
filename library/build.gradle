@@ -23,13 +23,13 @@ dependencies {
 
 android {
     publishNonDefault true
-    compileSdkVersion 25
+    compileSdkVersion 28
     buildToolsVersion "25.0.0"
 
     defaultConfig {
         versionName "1.6.0"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 28
     }
 
     sourceSets {
