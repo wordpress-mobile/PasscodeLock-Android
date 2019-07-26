@@ -1,10 +1,13 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
     }
 }
 
@@ -13,23 +16,25 @@ apply plugin: 'maven'
 apply plugin: 'com.novoda.bintray-release'
 
 repositories {
+    google()
     jcenter()
+    maven { url 'https://maven.google.com' }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:preference-v7:25.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.preference:preference:1.0.0'
 }
 
 android {
     publishNonDefault true
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
-        versionName "1.6.0"
+        versionName "1.7.0"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 28
     }
 
     sourceSets {
@@ -58,7 +63,7 @@ publish {
     groupId = 'org.wordpress'
     uploadName = 'passcodelock'
     artifactId = 'passcodelock'
-    description = ' Android Library that provides passcode lock to your app'
+    desc = 'Android library that provides passcode lock to your app'
     publishVersion = android.defaultConfig.versionName
     licences = ['MIT', 'GPL-2.0']
     website = 'https://github.com/wordpress-mobile/PasscodeLock-Android'

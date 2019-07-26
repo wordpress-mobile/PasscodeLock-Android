@@ -1,9 +1,10 @@
 package org.wordpress.passcodelock;
 
 import android.content.Intent;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v4.os.CancellationSignal;
 import android.view.View;
+
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
 
 public class PasscodeUnlockActivity extends AbstractPasscodeKeyboardActivity {
     @Override
