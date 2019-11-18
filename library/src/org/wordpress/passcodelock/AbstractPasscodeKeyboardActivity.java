@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,9 +128,8 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                 arg0.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             }
 
-            //set the value and move the focus
-            String currentValueString = mPinCodeField.getText() + String.valueOf(currentValue);
-            mPinCodeField.setText(currentValueString);
+            // Add value and move focus.
+            mPinCodeField.append(String.valueOf(currentValue));
             mPinCodeField.setSelection(mPinCodeField.length());
 
             if (mPinCodeField.length() >= 4) {
