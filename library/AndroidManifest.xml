@@ -2,8 +2,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.wordpress.passcodelock"
-    android:versionCode="1" >
+    package="org.wordpress.passcodelock" >
 
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT" />
