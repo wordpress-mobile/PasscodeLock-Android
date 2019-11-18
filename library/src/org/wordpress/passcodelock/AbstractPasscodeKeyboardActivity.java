@@ -156,9 +156,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     }
 
     protected void showPasswordError(){
-        Toast toast = Toast.makeText(AbstractPasscodeKeyboardActivity.this, getString(R.string.passcode_wrong_passcode), Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 30);
-        toast.show();
+        Toast.makeText(AbstractPasscodeKeyboardActivity.this, R.string.passcode_wrong_passcode, Toast.LENGTH_SHORT).show();
     }
     
     protected abstract void onPinLockInserted();
