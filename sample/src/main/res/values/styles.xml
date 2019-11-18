@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
     <!-- Styles for the Settings interface -->
@@ -9,24 +11,29 @@
 
     <!-- Styles for customizing the Passcode Lock interface -->
     <style name="PasscodeEditTextStyle">
-        <item name="android:background">@color/primary</item>
-        <item name="android:layout_marginLeft">40dp</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_margin">16dp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/passcodelock_field_text_color</item>
         <item name="android:textColorHint">@color/passcodelock_field_hint_text_color</item>
+        <item name="android:textSize">34sp</item>
     </style>
 
     <style name="PasscodeKeyboardButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:clickable">true</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textColor">@color/passcodelock_button_text_color</item>
         <item name="android:textSize">@dimen/passcodelock_button_text_size</item>
-        <item name="colorAccent">@color/white</item>
-        <item name="colorControlActivated">@color/list_row_selected</item>
-        <item name="colorControlHighlight">@color/list_row_selected</item>
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+    </style>
+
+    <style name="PasscodeKeyboardImageStyle" parent="@style/PasscodeKeyboardButtonStyle">
+        <item name="android:tint">@color/passcodelock_button_image_color</item>
     </style>
 
 </resources>

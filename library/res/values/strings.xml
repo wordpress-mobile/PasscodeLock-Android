@@ -13,7 +13,7 @@
     <string name="passcode_turn_off">Turn passcode off</string>
     <string name="passcode_turn_on">Turn passcode on</string>
 
-    <string name="passcodelock_prompt_message">Enter your PIN</string>
+    <string name="passcodelock_prompt_message">Enter your passcode</string>
     <string name="passcodelock_hint"></string>
     <string name="passcodelock_numpad_0">0</string>
     <string name="passcodelock_numpad_1">1</string>
@@ -30,7 +30,7 @@
     <string name="pref_key_passcode_toggle">turn_passcode_on_off</string>
     <string name="pref_key_change_passcode">change_passcode</string>
 
-    <!-- Content description -->
-    <string name="cd_passcodelock_logo">PasscodeLock logo image</string>
+    <string name="passcode_description_delete">Delete</string>
+    <string name="passcode_description_fingerprint">Fingerprint authentication supported</string>
 
 </resources>
