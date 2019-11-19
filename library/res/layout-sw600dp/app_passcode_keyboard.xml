@@ -1,153 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_gravity="center"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/passcodelock_background">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/passcodelock_background"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <LinearLayout
-        android:id="@+id/AppUnlockLinearLayout1"
-        android:layout_width="500dp"
+    <TextView
+        android:id="@+id/passcodelock_prompt"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="360dp"
+        android:paddingTop="40dp"
+        android:text="@string/passcodelock_prompt_message"
+        android:textColor="@color/passcodelock_prompt_text_color"
+        android:textSize="20sp">
+    </TextView>
+
+    <RelativeLayout
+        android:id="@+id/AppUnlockLinearLayout1"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-
-        <ImageView
-            android:id="@+id/passcode_logo"
-            android:contentDescription="@string/cd_passcodelock_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/passcode_logo" >
-        </ImageView>
-
-        <TextView
-            android:id="@+id/passcodelock_prompt"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:text="@string/passcodelock_prompt_message"
-            android:textAlignment="center"
-            android:textColor="@color/passcodelock_prompt_text_color"
-            android:textSize="18sp" />
+        android:layout_below="@id/passcodelock_prompt"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:paddingBottom="24dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="32dp">
 
         <EditText
             android:id="@+id/pin_field"
-            style="@style/PasscodeEditTextStyle"
+            android:clickable="false"
+            android:focusable="false"
             android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="38dp"
             android:hint="@string/passcodelock_hint"
-            android:maxLength="4"
+            android:importantForAutofill="no"
             android:inputType="numberPassword"
-            android:background="@color/white" />
+            android:layout_above="@id/divider"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:letterSpacing="0.3"
+            android:maxLength="4"
+            tools:targetApi="lollipop"
+            style="@style/PasscodeEditTextStyle">
+        </EditText>
+
+        <View
+            android:id="@+id/divider"
+            android:background="@color/passcodelock_divider"
+            android:layout_above="@id/tableLayout1"
+            android:layout_height="@dimen/passcodelock_divider"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent">
+        </View>
 
         <TableLayout
             android:id="@+id/tableLayout1"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="30dp"
             android:shrinkColumns="*"
-            android:stretchColumns="*" >
+            android:stretchColumns="*">
 
             <TableRow>
+
                 <Button
                     android:id="@+id/button1"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_1" />
+                    android:text="@string/passcodelock_numpad_1"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button2"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_2" />
+                    android:text="@string/passcodelock_numpad_2"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button3"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_3" />
+                    android:text="@string/passcodelock_numpad_3"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
+
             </TableRow>
 
             <TableRow>
+
                 <Button
                     android:id="@+id/button4"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_4" />
+                    android:text="@string/passcodelock_numpad_4"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button5"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_5" />
+                    android:text="@string/passcodelock_numpad_5"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button6"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_6" />
+                    android:text="@string/passcodelock_numpad_6"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
+
             </TableRow>
 
             <TableRow>
+
                 <Button
                     android:id="@+id/button7"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_7" />
+                    android:text="@string/passcodelock_numpad_7"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button8"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_8" />
+                    android:text="@string/passcodelock_numpad_8"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <Button
                     android:id="@+id/button9"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_9" />
+                    android:text="@string/passcodelock_numpad_9"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
+
             </TableRow>
 
             <TableRow>
-                <Button
-                    android:id="@+id/button_none"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:text="" />
+
+                <ImageButton
+                    android:id="@+id/image_fingerprint"
+                    android:contentDescription="@string/passcode_description_fingerprint"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fingerprint_white_24dp"
+                    android:visibility="invisible"
+                    style="@style/PasscodeKeyboardImageStyle">
+                </ImageButton>
 
                 <Button
                     android:id="@+id/button0"
-                    style="@style/PasscodeKeyboardButtonStyle"
-                    android:text="@string/passcodelock_numpad_0" />
+                    android:text="@string/passcodelock_numpad_0"
+                    style="@style/PasscodeKeyboardButtonStyle">
+                </Button>
 
                 <ImageButton
                     android:id="@+id/button_erase"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/PasscodeKeyboardButtonStyle"
+                    android:contentDescription="@string/passcode_description_delete"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
                     android:scaleType="centerInside"
-                    android:tint="@color/passcodelock_button_text_color"
-                    android:src="@drawable/ic_backspace_white_36dp"
-                    android:layout_gravity="center" />
+                    android:src="@drawable/ic_backspace_white_24dp"
+                    style="@style/PasscodeKeyboardImageStyle">
+                </ImageButton>
+
             </TableRow>
 
         </TableLayout>
 
-        <ImageView
-            android:id="@+id/image_fingerprint"
-            android:contentDescription="fingerprint supported"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/passcodelock_fingerprint_image_margin_top"
-            android:visibility="gone"
-            android:src="@drawable/ic_fp_40px" />
+    </RelativeLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

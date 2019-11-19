@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,9 +128,8 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
                 arg0.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             }
 
-            //set the value and move the focus
-            String currentValueString = mPinCodeField.getText() + String.valueOf(currentValue);
-            mPinCodeField.setText(currentValueString);
+            // Add value and move focus.
+            mPinCodeField.append(String.valueOf(currentValue));
             mPinCodeField.setSelection(mPinCodeField.length());
 
             if (mPinCodeField.length() >= 4) {
@@ -158,9 +156,7 @@ public abstract class AbstractPasscodeKeyboardActivity extends Activity {
     }
 
     protected void showPasswordError(){
-        Toast toast = Toast.makeText(AbstractPasscodeKeyboardActivity.this, getString(R.string.passcode_wrong_passcode), Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 30);
-        toast.show();
+        Toast.makeText(AbstractPasscodeKeyboardActivity.this, R.string.passcode_wrong_passcode, Toast.LENGTH_SHORT).show();
     }
     
     protected abstract void onPinLockInserted();
