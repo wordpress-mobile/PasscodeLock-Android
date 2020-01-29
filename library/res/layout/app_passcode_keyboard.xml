@@ -27,6 +27,7 @@
 
     <RelativeLayout
         android:id="@+id/AppUnlockLinearLayout1"
+        android:gravity="center"
         android:layout_below="@id/passcodelock_prompt"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -60,7 +61,6 @@
 
         <TableLayout
             android:id="@+id/tableLayout1"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
