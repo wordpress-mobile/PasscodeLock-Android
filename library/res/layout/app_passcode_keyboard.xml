@@ -25,12 +25,13 @@
         android:textSize="20sp">
     </TextView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/AppUnlockLinearLayout1"
         android:gravity="center"
         android:layout_below="@id/passcodelock_prompt"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/pin_field"
@@ -40,7 +41,6 @@
             android:hint="@string/passcodelock_hint"
             android:importantForAutofill="no"
             android:inputType="numberPassword"
-            android:layout_above="@id/divider"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:letterSpacing="0.3"
@@ -52,7 +52,6 @@
         <View
             android:id="@+id/divider"
             android:background="@color/passcodelock_divider"
-            android:layout_above="@id/tableLayout1"
             android:layout_height="@dimen/passcodelock_divider"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -168,6 +167,6 @@
 
         </TableLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
