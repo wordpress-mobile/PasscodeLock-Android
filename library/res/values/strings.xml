@@ -8,6 +8,7 @@
     <string name="passcode_re_enter_passcode">Re-enter your passcode</string>
     <string name="passcode_change_passcode">Change passcode</string>
     <string name="passcode_set">Passcode set</string>
+    <string name="passcode_set_for_first_time">Set Your PIN</string>
     <string name="passcode_wrong_passcode">Wrong passcode, please try again.</string>
     <string name="passcode_preference_title">Passcode lock</string>
     <string name="passcode_turn_off">Turn passcode off</string>
